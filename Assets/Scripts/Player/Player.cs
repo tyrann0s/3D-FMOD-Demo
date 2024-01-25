@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
         CanMove = true;
     }
 
+    public Vector3 GetEyesPosition()
+    {
+        return playerCamera.transform.position;
+    }
+
     private void Update()
     {
         // We are grounded, so recalculate move direction based on axes
