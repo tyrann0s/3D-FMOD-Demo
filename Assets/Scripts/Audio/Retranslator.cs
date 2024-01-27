@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Retranslator : MonoBehaviour
+public class Retranslator : tAudio
 {
     private bool hasSound = false;
-    private Player player;
 
     public RaycastHit Hit {  get; private set; }
     public bool SeePlayer { get; private set; }
@@ -19,18 +18,12 @@ public class Retranslator : MonoBehaviour
     {
         if (hasSound)
         {
-            RaycastHit hit;
-            Vector3 direction = player.GetEyesPosition() - transform.position;
-
-            if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
+            if (IsPlayerInSight())
             {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    Hit = hit;
-                    SeePlayer = true;
-                    Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
-                } else SeePlayer = false;
+                SeePlayer = true;
+                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
             }
+            else SeePlayer = false;
         }
     }
 

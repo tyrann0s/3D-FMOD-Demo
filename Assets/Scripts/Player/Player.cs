@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     public Vector3 GetEyesPosition()
     {
-        return playerCamera.transform.position;
+        return new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - .5f, playerCamera.transform.position.z);
     }
 
     private void Update()

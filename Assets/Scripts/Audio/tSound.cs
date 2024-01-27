@@ -2,30 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tSound : MonoBehaviour
+public class tSound : tAudio
 {
     [SerializeField]
     [FMODUnity.EventRef]
-    private string soundPath;
+    protected string soundPath;
+    public string SoundPath => soundPath;
 
     [SerializeField]
     [Range(0f, 1f)]
     private float startVolume;
 
     [SerializeField]
-    private float maxDistance;
+    protected float maxDistance, retranslatorDistanceOffset;
+    public float MaxDistance => maxDistance;
+    public float RetranslatorDistanceOffset => retranslatorDistanceOffset;
 
-    private FMOD.Studio.EventInstance soundInstance;
-    private Player player;
+    protected FMOD.Studio.EventInstance soundInstance;
+
     private Retranslator retranslator;
     private List<Retranslator> retranslatorList = new List<Retranslator>();
-
-    private void Start()
+    
+    protected virtual void Start()
     {
         soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundPath);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
-
-        player = FindObjectOfType<Player>();
 
         retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
 
@@ -35,44 +36,47 @@ public class tSound : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit hit;
-
-        Vector3 direction = player.transform.position - transform.position;
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
+        if (IsPlayerInSight())
         {
-            if (hit.collider.CompareTag("Player"))
+            if (PlayerHit.collider.CompareTag("Player"))
             {
                 FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
                 if (retranslator != null) retranslator.Set(false);
 
-                float volume = 1 - (hit.distance / maxDistance);
+                float dist = PlayerHit.distance / maxDistance;
 
-                soundInstance.setVolume(Mathf.Clamp01(volume));
+                SetSoundParameters(dist);
+
                 soundInstance.getVolume(out float value);
-                Debug.Log("Stright - " + hit.distance + "/" + value);
+                Debug.Log(gameObject.name + " - " + PlayerHit.distance + "/" + value);
                 Debug.DrawLine(transform.position, player.transform.position, Color.blue);
             }
-            else
-            {
-                FindRetranslator();
-
-                if (retranslator != null && retranslator.SeePlayer)
-                {
-                    float volume = 1 - ((hit.distance + retranslator.Hit.distance) / maxDistance);
-
-                    soundInstance.setVolume(Mathf.Clamp01(volume));
-                    soundInstance.getVolume(out float value);
-                    Debug.Log("Retranslator - " + (hit.distance + retranslator.Hit.distance) + "/" + value);
-                    Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
-                }
-            }
         }
+        else
+        {
+            FindRetranslator();
+            if (retranslator == null) return;
+
+            Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
+            float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
+
+            SetSoundParameters(dist);
+
+            soundInstance.getVolume(out float value);
+            Debug.Log(retranslator.gameObject.name + " - " + (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) + "/" + value);
+            Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+        }
+    }
+
+    private void SetSoundParameters(float input)
+    { 
+        float volume = 1 - input;
+        soundInstance.setVolume(Mathf.Clamp01(volume));
+        soundInstance.setParameterByName("DistanceFilter", volume);
     }
 
     private void FindRetranslator()
     {
-
         if (retranslator != null) retranslator.Set(false);
         float lastDist = maxDistance;
 
@@ -80,7 +84,7 @@ public class tSound : MonoBehaviour
         {
             float dist = Vector3.Distance(retranslatorList[i].transform.position, player.transform.position);
 
-            if (IsInSight(retranslatorList[i].gameObject) && dist < lastDist)
+            if (IsInSight(retranslatorList[i].gameObject) && retranslatorList[i].IsPlayerInSight() && dist < lastDist)
             {
                 lastDist = dist;
                 retranslator = retranslatorList[i];
