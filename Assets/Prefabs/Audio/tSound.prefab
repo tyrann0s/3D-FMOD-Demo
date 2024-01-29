@@ -145,6 +145,10 @@ MonoBehaviour:
   startVolume: 0
   maxDistance: 15
   retranslatorDistanceOffset: 0.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  debug: 1
 --- !u!54 &3328023686799375441
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -28,11 +28,26 @@ public class Room : MonoBehaviour
                 go.transform.position = portal.transform.position;
 
                 tSoundClone tSoundClone = go.GetComponent<tSoundClone>();
-                tSoundClone.SetUp(sound.SoundPath, sound.MaxDistance, sound.RetranslatorDistanceOffset);
+                tSoundClone.SetUp(sound.SoundPath, sound.MaxDistance, sound.RetranslatorDistanceOffset, sound);
+
+                portalSoundsList.Add(tSoundClone);
             }
 
-            sound.SetInRoom(true);
+            sound.SetInRoom(true, this);
             soundList.Add(sound);
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            foreach (tSoundClone soundClone in portalSoundsList)
+            {
+                soundClone.SetSoundParameters(1);
+            }
+
+            foreach (tSoundOriginal soundOriginal in soundList)
+            {
+                soundOriginal.SetInRoom(false, this);
+            }
         }
     }
 
@@ -44,8 +59,32 @@ public class Room : MonoBehaviour
 
             if (soundList.Contains(sound))
             {
-                sound.SetInRoom(false);
-                soundList.Remove(sound);
+                List<tSoundClone> sounds2Delete = new List<tSoundClone>();
+
+                foreach (tSoundClone soundClone in portalSoundsList)
+                {
+                    sounds2Delete.Add(soundClone);
+                }
+
+                foreach (tSoundClone soundClone in sounds2Delete)
+                {
+                    if (soundClone.OriginalSound == sound)
+                    {
+                        portalSoundsList.Remove(soundClone);
+                        Destroy(soundClone.gameObject);
+                    }
+                }
+
+                sound.SetInRoom(false, this);
+                soundList.Remove(sound); 
+            }
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            foreach (tSoundOriginal soundOriginal in soundList)
+            {
+                soundOriginal.SetInRoom(true, this);
             }
         }
     }

@@ -18,7 +18,17 @@ public class tSound : tAudio
     public float MaxDistance => maxDistance;
     public float RetranslatorDistanceOffset => retranslatorDistanceOffset;
 
+    [SerializeField]
+    private LayerMask playerLayer;
+
+    [SerializeField]
+    private bool debug;
+
+    public Room TargetRoom { get; set; }
+    public Room LastRoom { get; set; }
+
     protected FMOD.Studio.EventInstance soundInstance;
+    public FMOD.Studio.EventInstance SoundInstance => soundInstance;
 
     private Retranslator retranslator;
     private List<Retranslator> retranslatorList = new List<Retranslator>();
@@ -30,45 +40,70 @@ public class tSound : tAudio
 
         retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
 
-        soundInstance.start();
+        Play();
         soundInstance.setVolume(startVolume);
     }
 
     private void FixedUpdate()
     {
-        if (IsPlayerInSight())
+        if (TargetRoom == null)
         {
-            if (PlayerHit.collider.CompareTag("Player"))
+            if (IsPlayerInSight())
             {
-                FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
-                if (retranslator != null) retranslator.Set(false);
+                if (PlayerHit.collider.CompareTag("Player"))
+                {
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+                    if (retranslator != null) retranslator.Set(false);
 
-                float dist = PlayerHit.distance / maxDistance;
+                    float dist = PlayerHit.distance / maxDistance;
+
+                    SetSoundParameters(dist); 
+
+                    if (debug)
+                    {
+                        soundInstance.getVolume(out float value);
+                        Debug.Log(gameObject.name + " - " + PlayerHit.distance + "/" + value);
+                        Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
+                    }
+                }
+            }
+            else
+            {
+                FindRetranslator();
+                if (retranslator == null) return;
+
+                Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
+                float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
 
                 SetSoundParameters(dist);
 
-                soundInstance.getVolume(out float value);
-                Debug.Log(gameObject.name + " - " + PlayerHit.distance + "/" + value);
-                Debug.DrawLine(transform.position, player.transform.position, Color.blue);
+                if (debug)
+                {
+                    soundInstance.getVolume(out float value);
+                    Debug.Log(retranslator.gameObject.name + " - " + (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) + "/" + value);
+                    Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+                }
             }
         }
         else
         {
-            FindRetranslator();
-            if (retranslator == null) return;
+            Physics.Raycast(transform.position, transform.TransformDirection(player.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity, playerLayer);
 
-            Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
-            float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
+            float dist = hit.distance / maxDistance;
 
             SetSoundParameters(dist);
 
-            soundInstance.getVolume(out float value);
-            Debug.Log(retranslator.gameObject.name + " - " + (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) + "/" + value);
-            Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+            if (debug)
+            {
+                soundInstance.getVolume(out float value);
+                Debug.Log(gameObject.name + " - " + hit.distance + "/" + value);
+                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
+            }
         }
+        
     }
 
-    private void SetSoundParameters(float input)
+    public void SetSoundParameters(float input)
     { 
         float volume = 1 - input;
         soundInstance.setVolume(Mathf.Clamp01(volume));
@@ -116,5 +151,20 @@ public class tSound : tAudio
     private void OnDestroy()
     {
         soundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void Play()
+    {
+        soundInstance.start();
+    }
+
+    public void Stop()
+    {
+        soundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void StopImmediate()
+    {
+        soundInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 }
