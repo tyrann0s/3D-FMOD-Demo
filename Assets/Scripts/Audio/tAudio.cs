@@ -5,24 +5,24 @@ using UnityEngine;
 public class tAudio : MonoBehaviour
 {
     protected Player player;
-    public RaycastHit PlayerHit { get; private set; }
+    public RaycastHit PlayerHit { get; protected set; }
 
     private void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
-    public bool IsPlayerInSight()
+    public virtual bool IsPlayerInSight(Vector3 originPos)
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(player.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(originPos, transform.TransformDirection(player.transform.position - originPos), out RaycastHit hit, Mathf.Infinity))
         {
             if (hit.collider.CompareTag("Player"))
             {
                 PlayerHit = hit;
                 return true;
             }
-            else return false;
         }
-        else return false;
+
+        return false;
     }
 }

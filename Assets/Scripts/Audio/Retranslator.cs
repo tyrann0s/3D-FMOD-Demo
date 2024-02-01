@@ -18,7 +18,7 @@ public class Retranslator : tAudio
     {
         if (hasSound)
         {
-            if (IsPlayerInSight())
+            if (IsPlayerInSight(transform.position))
             {
                 SeePlayer = true;
                 Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);

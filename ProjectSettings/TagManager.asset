@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Retranslator
   - tSound
+  - Portal
   layers:
   - Default
   - TransparentFX

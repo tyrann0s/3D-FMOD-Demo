@@ -148,6 +148,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  retranslatorLayr:
+    serializedVersion: 2
+    m_Bits: 128
   debug: 1
 --- !u!54 &3328023686799375441
 Rigidbody:

@@ -22,7 +22,7 @@ public class tSound : tAudio
     private LayerMask playerLayer;
 
     [SerializeField]
-    private bool debug;
+    private bool allowDebug;
 
     public Room TargetRoom { get; set; }
     public Room LastRoom { get; set; }
@@ -48,7 +48,7 @@ public class tSound : tAudio
     {
         if (TargetRoom == null)
         {
-            if (IsPlayerInSight())
+            if (IsPlayerInSight(transform.position))
             {
                 if (PlayerHit.collider.CompareTag("Player"))
                 {
@@ -59,7 +59,7 @@ public class tSound : tAudio
 
                     SetSoundParameters(dist); 
 
-                    if (debug)
+                    if (allowDebug)
                     {
                         soundInstance.getVolume(out float value);
                         Debug.Log(gameObject.name + " - " + PlayerHit.distance + "/" + value);
@@ -77,7 +77,7 @@ public class tSound : tAudio
 
                 SetSoundParameters(dist);
 
-                if (debug)
+                if (allowDebug)
                 {
                     soundInstance.getVolume(out float value);
                     Debug.Log(retranslator.gameObject.name + " - " + (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) + "/" + value);
@@ -93,7 +93,7 @@ public class tSound : tAudio
 
             SetSoundParameters(dist);
 
-            if (debug)
+            if (allowDebug)
             {
                 soundInstance.getVolume(out float value);
                 Debug.Log(gameObject.name + " - " + hit.distance + "/" + value);
@@ -119,7 +119,7 @@ public class tSound : tAudio
         {
             float dist = Vector3.Distance(retranslatorList[i].transform.position, player.transform.position);
 
-            if (IsInSight(retranslatorList[i].gameObject) && retranslatorList[i].IsPlayerInSight() && dist < lastDist)
+            if (IsInSight(retranslatorList[i].gameObject) && dist < lastDist)
             {
                 lastDist = dist;
                 retranslator = retranslatorList[i];
@@ -134,15 +134,24 @@ public class tSound : tAudio
 
     private bool IsInSight(GameObject gameObject)
     {
-        RaycastHit hit;
         Vector3 direction = gameObject.transform.position - transform.position;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out RaycastHit hit, Mathf.Infinity))
         {
-            if (hit.collider.gameObject == gameObject && hit.collider.CompareTag("Retranslator"))
+            GameObject hitGO = hit.collider.gameObject;
+
+            if (hit.collider.CompareTag("Retranslator"))
             {
-                return true;
-            } else return false;
+                if (hitGO.GetComponent<Retranslator>().IsPlayerInSight(hitGO.transform.position))
+                {
+                    return true;
+                }
+
+                if (hitGO.GetComponentInParent<Portal>())
+                {
+                    return true;
+                }
+            }
         }
 
         return false;

@@ -41,7 +41,7 @@ public class Room : MonoBehaviour
         {
             foreach (tSoundClone soundClone in portalSoundsList)
             {
-                soundClone.SetSoundParameters(1);
+                soundClone.StopImmediate();
             }
 
             foreach (tSoundOriginal soundOriginal in soundList)
@@ -70,6 +70,7 @@ public class Room : MonoBehaviour
                 {
                     if (soundClone.OriginalSound == sound)
                     {
+                        soundClone.StopImmediate();
                         portalSoundsList.Remove(soundClone);
                         Destroy(soundClone.gameObject);
                     }
@@ -85,6 +86,11 @@ public class Room : MonoBehaviour
             foreach (tSoundOriginal soundOriginal in soundList)
             {
                 soundOriginal.SetInRoom(true, this);
+            }
+
+            foreach (tSoundClone soundClone in portalSoundsList)
+            {
+                soundClone.PlayClone();
             }
         }
     }

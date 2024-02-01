@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : tAudio
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //[SerializeField]
+    //private LayerMask retranslatorLayer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //public override bool IsPlayerInSight(Vector3 originPos)
+    //{
+    //    if (Physics.Raycast(originPos, transform.TransformDirection(player.transform.position - originPos), out RaycastHit hit, Mathf.Infinity))
+    //    {
+    //        if (hit.collider.CompareTag("Player"))
+    //        {
+    //            Debug.Log(gameObject.name + " yay!");
+    //            PlayerHit = hit;
+    //            return true;
+    //        }
+    //        else Debug.Log("Well shit");
+    //    }
+
+    //    base.IsPlayerInSight(originPos);
+    //    return false;
+    //}
 }
