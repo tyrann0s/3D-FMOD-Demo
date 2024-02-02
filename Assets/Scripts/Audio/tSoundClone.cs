@@ -7,13 +7,12 @@ public class tSoundClone : tSound
 {
     public tSoundOriginal OriginalSound { get; private set; }
 
-    public void SetUp(string sPath, float distance, float retrDistanceOffset, tSoundOriginal ogSound)
+    public void SetUp(tSoundOriginal ogSound)
     {
         StopImmediate();
 
-        soundPath = sPath;
-        maxDistance = distance / 2;
-        retranslatorDistanceOffset = retrDistanceOffset;
+        soundPath = ogSound.SoundPath;
+        retranslatorDistanceOffset = ogSound.RetranslatorDistanceOffset;
         OriginalSound = ogSound;
 
         PlayClone();
@@ -28,5 +27,13 @@ public class tSoundClone : tSound
         }
 
         Play();
+    }
+
+    private void Update()
+    {
+        if (OriginalSound != null)
+        {
+            maxDistance = OriginalSound.DistanceToPlayer();
+        }
     }
 }

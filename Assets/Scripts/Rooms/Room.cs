@@ -1,3 +1,4 @@
+using FMOD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,16 +23,7 @@ public class Room : MonoBehaviour
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
-            foreach (Portal portal in portalList)
-            {
-                GameObject go = Instantiate(tSoundPrefab);
-                go.transform.position = portal.transform.position;
-
-                tSoundClone tSoundClone = go.GetComponent<tSoundClone>();
-                tSoundClone.SetUp(sound.SoundPath, sound.MaxDistance, sound.RetranslatorDistanceOffset, sound);
-
-                portalSoundsList.Add(tSoundClone);
-            }
+            CreateClonesAtPortals(sound);
 
             sound.SetInRoom(true, this);
             soundList.Add(sound);
@@ -48,6 +40,8 @@ public class Room : MonoBehaviour
             {
                 soundOriginal.SetInRoom(false, this);
             }
+
+            TranslateExternalSounds();
         }
     }
 
@@ -59,25 +53,7 @@ public class Room : MonoBehaviour
 
             if (soundList.Contains(sound))
             {
-                List<tSoundClone> sounds2Delete = new List<tSoundClone>();
-
-                foreach (tSoundClone soundClone in portalSoundsList)
-                {
-                    sounds2Delete.Add(soundClone);
-                }
-
-                foreach (tSoundClone soundClone in sounds2Delete)
-                {
-                    if (soundClone.OriginalSound == sound)
-                    {
-                        soundClone.StopImmediate();
-                        portalSoundsList.Remove(soundClone);
-                        Destroy(soundClone.gameObject);
-                    }
-                }
-
-                sound.SetInRoom(false, this);
-                soundList.Remove(sound); 
+                DeleteClonesAtPortals(sound);
             }
         }
 
@@ -92,6 +68,73 @@ public class Room : MonoBehaviour
             {
                 soundClone.PlayClone();
             }
+
+            ClearExternalSound();
         }
+    }
+
+    private void TranslateExternalSounds()
+    {
+        // Собираем все tSound в определенном радиусе и для каждого создаем копию на каждойм портале.
+        // Важно сделать чтобы оригинал каждый кадр передавал настройки на свои клоны, чтобы 3д работало адекватно
+        // Оригинал отключаем/ставим на него комнатный фильтр
+
+        foreach (tSoundOriginal soundOriginal in FindObjectsOfType<tSoundOriginal>())
+        {
+            if (soundOriginal.TargetRoom == null)
+            {
+                CreateClonesAtPortals(soundOriginal);
+                soundOriginal.SetOutside(true);
+            }
+        }
+    }
+
+    private void CreateClonesAtPortals(tSoundOriginal soundOriginal)
+    {
+        foreach (Portal portal in portalList)
+        {
+            GameObject go = Instantiate(tSoundPrefab);
+            go.transform.position = portal.transform.position;
+
+            tSoundClone tSoundClone = go.GetComponent<tSoundClone>();
+            tSoundClone.SetUp(soundOriginal);
+            portalSoundsList.Add(tSoundClone);
+        }
+    }
+
+    private void ClearExternalSound()
+    {
+        // Собираем все клоны всех tSound'ов и удаляем их, включаем оригинал обратно
+        foreach (tSoundOriginal soundOriginal in FindObjectsOfType<tSoundOriginal>())
+        {
+            if (soundOriginal.TargetRoom == null)
+            {
+                DeleteClonesAtPortals(soundOriginal);
+                soundOriginal.SetOutside(false);
+            }
+        }
+    }
+
+    private void DeleteClonesAtPortals(tSoundOriginal soundOriginal)
+    {
+        List<tSoundClone> sounds2Delete = new List<tSoundClone>();
+
+        foreach (tSoundClone soundClone in portalSoundsList)
+        {
+            sounds2Delete.Add(soundClone);
+        }
+
+        foreach (tSoundClone soundClone in sounds2Delete)
+        {
+            if (soundClone.OriginalSound == soundOriginal)
+            {
+                soundClone.StopImmediate();
+                portalSoundsList.Remove(soundClone);
+                Destroy(soundClone.gameObject);
+            }
+        }
+
+        soundOriginal.SetInRoom(false, this);
+        soundList.Remove(soundOriginal);
     }
 }

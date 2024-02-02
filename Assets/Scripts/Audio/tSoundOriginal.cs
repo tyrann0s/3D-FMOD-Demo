@@ -17,4 +17,18 @@ public class tSoundOriginal : tSound
             TargetRoom = null;
         }
     }
+
+    public void SetOutside(bool value)
+    {
+        if (value)
+        {
+            soundInstance.setParameterByName("RoomFilter", 1);
+        }
+        else
+        {
+            soundInstance.setParameterByName("RoomFilter", 0);
+        }
+    }
+
+    public float DistanceToPlayer() { return PlayerHit.distance / maxDistance; }
 }
