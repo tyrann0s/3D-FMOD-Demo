@@ -146,4 +146,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  debug: 0
+  allowDebug: 1
+  isFiltered: 0
+  volume: 0
+  distanceFilter: 0
+  distanceDivider: 2
+  isFilteredOriginal: 0
+  volumeOriginal: 0

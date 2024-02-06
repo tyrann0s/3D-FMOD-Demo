@@ -24,6 +24,14 @@ public class tSound : tAudio
     [SerializeField]
     private bool allowDebug;
 
+    [Header("Debug")]
+    [SerializeField]
+    private float isFiltered;
+    [SerializeField]
+    protected float volume;
+    [SerializeField]
+    private float distanceFilter;
+
     public Room TargetRoom { get; set; }
     public Room LastRoom { get; set; }
 
@@ -61,8 +69,6 @@ public class tSound : tAudio
 
                     if (allowDebug)
                     {
-                        soundInstance.getVolume(out float value);
-                        Debug.Log(gameObject.name + " - " + PlayerHit.distance + "/" + value);
                         Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
                     }
                 }
@@ -79,8 +85,6 @@ public class tSound : tAudio
 
                 if (allowDebug)
                 {
-                    soundInstance.getVolume(out float value);
-                    Debug.Log(retranslator.gameObject.name + " - " + (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) + "/" + value);
                     Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
                 }
             }
@@ -95,19 +99,20 @@ public class tSound : tAudio
 
             if (allowDebug)
             {
-                soundInstance.getVolume(out float value);
-                Debug.Log(gameObject.name + " - " + hit.distance + "/" + value);
                 Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
             }
         }
         
     }
 
-    public void SetSoundParameters(float input)
+    public virtual void SetSoundParameters(float input)
     { 
-        float volume = 1 - input;
-        soundInstance.setVolume(Mathf.Clamp01(volume));
+        float volume = Mathf.Clamp01(1 - input);
+
+        soundInstance.setVolume(volume);
         soundInstance.setParameterByName("DistanceFilter", volume);
+
+        //if (allowDebug) Debug.Log(input + "/" + volume);
     }
 
     private void FindRetranslator()
@@ -167,6 +172,14 @@ public class tSound : tAudio
         soundInstance.start();
     }
 
+    public void Play(int timeLinePosition)
+    {
+        
+        soundInstance.start();
+
+        soundInstance.setTimelinePosition(timeLinePosition);
+    }
+
     public void Stop()
     {
         soundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
@@ -175,5 +188,12 @@ public class tSound : tAudio
     public void StopImmediate()
     {
         soundInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+    protected virtual void Update()
+    {
+        soundInstance.getParameterByName("RoomFilter", out isFiltered);
+        soundInstance.getVolume(out volume);
+        soundInstance.getParameterByName("DistanceFilter", out distanceFilter);
     }
 }

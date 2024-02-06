@@ -148,10 +148,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  retranslatorLayr:
-    serializedVersion: 2
-    m_Bits: 128
-  debug: 1
+  allowDebug: 1
+  isFiltered: 0
+  volume: 0
+  distanceFilter: 0
 --- !u!54 &3328023686799375441
 Rigidbody:
   m_ObjectHideFlags: 0

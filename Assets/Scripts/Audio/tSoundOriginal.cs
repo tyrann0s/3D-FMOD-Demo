@@ -30,5 +30,9 @@ public class tSoundOriginal : tSound
         }
     }
 
-    public float DistanceToPlayer() { return PlayerHit.distance / maxDistance; }
+    public float GetVolume()
+    {
+        soundInstance.getVolume(out float result);
+        return result;
+    }
 }
