@@ -105,14 +105,12 @@ public class tSound : tAudio
         
     }
 
-    public virtual void SetSoundParameters(float input)
+    protected virtual void SetSoundParameters(float input)
     { 
         float volume = Mathf.Clamp01(1 - input);
 
         soundInstance.setVolume(volume);
         soundInstance.setParameterByName("DistanceFilter", volume);
-
-        //if (allowDebug) Debug.Log(input + "/" + volume);
     }
 
     private void FindRetranslator()
@@ -174,10 +172,13 @@ public class tSound : tAudio
 
     public void Play(int timeLinePosition)
     {
-        
-        soundInstance.start();
-
         soundInstance.setTimelinePosition(timeLinePosition);
+        soundInstance.start();
+    }
+
+    public void Pause(bool value)
+    {
+        soundInstance.setPaused(value);
     }
 
     public void Stop()

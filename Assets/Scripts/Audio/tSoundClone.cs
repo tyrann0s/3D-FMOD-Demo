@@ -47,28 +47,23 @@ public class tSoundClone : tSound
 
         if (OriginalSound != null)
         {
-            
-            //Debug.Log(distanceToOriginal);
-            //SetSoundParameters(distanceToOriginal);
-
             OriginalSound.SoundInstance.getParameterByName("RoomFilter", out isFilteredOriginal);
             OriginalSound.SoundInstance.getVolume(out volumeOriginal);
             soundInstance.getTimelinePosition(out timeLinePosition);
             OriginalSound.SoundInstance.getTimelinePosition(out originalTimeLinePosition);
-
         }
     }
 
-    public override void SetSoundParameters(float input)
+    protected override void SetSoundParameters(float input)
     {
-        Debug.Log(input);
         if (OriginalSound != null)
         {
             if (volume < OriginalSound.GetVolume())
             {
-                lastDistance = (Vector3.Distance(OriginalSound.transform.position, transform.position) / OriginalSound.MaxDistance) + input;
+                float distanceToOriginal = Vector3.Distance(OriginalSound.transform.position, transform.position) / OriginalSound.MaxDistance;
+                lastDistance = distanceToOriginal + input;
                 base.SetSoundParameters(lastDistance);
-                Debug.Log("SOOOOQAAAAAA " + lastDistance);
+
             }
                 
         } 
