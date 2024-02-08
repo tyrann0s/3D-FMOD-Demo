@@ -151,5 +151,8 @@ MonoBehaviour:
   volume: 0
   distanceFilter: 0
   distanceDivider: 2
+  syncInterval: 0.5
   isFilteredOriginal: 0
   volumeOriginal: 0
+  timeLinePosition: 0
+  originalTimeLinePosition: 0

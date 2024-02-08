@@ -170,12 +170,6 @@ public class tSound : tAudio
         soundInstance.start();
     }
 
-    public void Play(int timeLinePosition)
-    {
-        soundInstance.setTimelinePosition(timeLinePosition);
-        soundInstance.start();
-    }
-
     public void Pause(bool value)
     {
         soundInstance.setPaused(value);

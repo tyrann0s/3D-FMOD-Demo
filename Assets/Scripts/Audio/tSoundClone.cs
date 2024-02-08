@@ -10,6 +10,10 @@ public class tSoundClone : tSound
     [SerializeField]
     private float distanceDivider;
 
+    [SerializeField]
+    private float syncInterval = 0.1f;
+    private float timer;
+
     [Header("Clone Debug")]
     [SerializeField]
     private float isFilteredOriginal;
@@ -38,7 +42,7 @@ public class tSoundClone : tSound
     {
         OriginalSound.SoundInstance.getTimelinePosition(out int position);
 
-        Play(position);
+        Play();
     }
 
     protected override void Update()
@@ -51,7 +55,19 @@ public class tSoundClone : tSound
             OriginalSound.SoundInstance.getVolume(out volumeOriginal);
             soundInstance.getTimelinePosition(out timeLinePosition);
             OriginalSound.SoundInstance.getTimelinePosition(out originalTimeLinePosition);
+
+            timer += Time.deltaTime;
+            if (timer >= syncInterval)
+            {
+                UpdateTimeLinePosition();
+                timer = 0f;
+            }
         }
+    }
+
+    private void UpdateTimeLinePosition()
+    {
+        soundInstance.setTimelinePosition(originalTimeLinePosition);
     }
 
     protected override void SetSoundParameters(float input)
