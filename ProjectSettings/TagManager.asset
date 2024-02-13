@@ -5,8 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Retranslator
-  - tSound
   - Portal
+  - Room
+  - Original Sound
+  - Clone Sound
   layers:
   - Default
   - TransparentFX

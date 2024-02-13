@@ -8,18 +8,22 @@ public class Room : MonoBehaviour
     [SerializeField]
     private GameObject tSoundPrefab;
     private List<Portal> portalList = new List<Portal>();
+    public List<Portal> PortalList => portalList;
+
     private List<tSoundOriginal> soundList = new List<tSoundOriginal>();
-    
     private List<tSoundClone> portalSoundsList = new List<tSoundClone>();
 
     private void Start()
     {
         portalList.AddRange(GetComponentsInChildren<Portal>());
+
+        BoxCollider collider = GetComponent<BoxCollider>();
+        collider.size = new Vector3(collider.size.x + .1f, collider.size.y + .1f, collider.size.z + .1f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("tSound"))
+        if (other.CompareTag("Original Sound"))
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
@@ -42,12 +46,14 @@ public class Room : MonoBehaviour
             }
 
             TranslateExternalSounds();
+
+            other.GetComponent<Player>().SetRoom(this);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("tSound"))
+        if (other.CompareTag("Original Sound"))
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
@@ -70,6 +76,8 @@ public class Room : MonoBehaviour
             }
 
             ClearExternalSound();
+
+            other.GetComponent<Player>().SetRoom(null);
         }
     }
 

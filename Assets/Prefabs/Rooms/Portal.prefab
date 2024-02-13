@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8335340753164446942}
   - component: {fileID: 8335340753164446945}
-  - component: {fileID: 2704963421355165641}
+  - component: {fileID: 5222058742041008216}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Portal
@@ -44,10 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e6cc8a73ee99942b867aef7e281da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  retranslatorLayer:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!65 &2704963421355165641
+--- !u!65 &5222058742041008216
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

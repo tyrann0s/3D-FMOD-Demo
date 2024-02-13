@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
 
     public bool CanMove { get; private set; }
 
+    public Room CurrentRoom { get; private set; }
+    public void SetRoom(Room room) { CurrentRoom = room; }
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();

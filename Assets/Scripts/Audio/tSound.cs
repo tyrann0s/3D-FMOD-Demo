@@ -39,6 +39,7 @@ public class tSound : tAudio
     public FMOD.Studio.EventInstance SoundInstance => soundInstance;
 
     private Retranslator retranslator;
+    public Retranslator Retranslator => retranslator;
     private List<Retranslator> retranslatorList = new List<Retranslator>();
     
     protected virtual void Start()
@@ -58,35 +59,32 @@ public class tSound : tAudio
         {
             if (IsPlayerInSight(transform.position))
             {
-                if (PlayerHit.collider.CompareTag("Player"))
-                {
-                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
-                    if (retranslator != null) retranslator.Set(false);
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+                if (retranslator != null) retranslator.Set(false);
 
-                    float dist = PlayerHit.distance / maxDistance;
-
-                    SetSoundParameters(dist); 
-
-                    if (allowDebug)
-                    {
-                        Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
-                    }
-                }
-            }
-            else
-            {
-                FindRetranslator();
-                if (retranslator == null) return;
-
-                Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
-                float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
+                float dist = PlayerHit.distance / maxDistance;
 
                 SetSoundParameters(dist);
 
                 if (allowDebug)
                 {
-                    Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+                    Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
                 }
+            }
+            else
+            {
+                if (player.CurrentRoom != null)
+                {
+                    if (IsPlayerRoomInSight())
+                    {
+                        Physics.Raycast(transform.position, transform.TransformDirection(player.CurrentRoom.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
+                        float dist = hit.distance / maxDistance;
+
+                        SetSoundParameters(dist);
+                    }
+                    else CastToRetranslator();
+                }
+                else CastToRetranslator();
             }
         }
         else
@@ -102,7 +100,22 @@ public class tSound : tAudio
                 Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
             }
         }
-        
+    }
+
+    private void CastToRetranslator()
+    {
+        FindRetranslator();
+        if (retranslator == null) return;
+
+        Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
+        float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
+
+        SetSoundParameters(dist);
+
+        if (allowDebug)
+        {
+            Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+        }
     }
 
     protected virtual void SetSoundParameters(float input)
@@ -133,6 +146,22 @@ public class tSound : tAudio
 
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, retranslator.transform);
         retranslator.Set(true);
+    }
+
+    public bool IsPlayerRoomInSight()
+    {
+        foreach (Portal portal in player.CurrentRoom.PortalList)
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(portal.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity))
+            { 
+                if (hit.collider.CompareTag("Portal"))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private bool IsInSight(GameObject gameObject)

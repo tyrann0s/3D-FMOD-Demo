@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: -175096513304372354}
   m_Layer: 0
   m_Name: tSound Clone
-  m_TagString: tSound
+  m_TagString: Clone Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367deeb7807cc30449c76472cd3b54ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalPlayerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  isPlayerInSight: 0
+  hittedObject: 
   soundPath: 
   startVolume: 0
   maxDistance: 0
