@@ -51,6 +51,14 @@ MonoBehaviour:
   gravity: 20
   lookSpeed: 2
   lookXLimit: 45
+  walkEvent: event:/Player/fstep_walk
+  runEvent: event:/Player/fstep_run
+  jumpEvent: event:/Player/jump
+  landEvent: event:/Player/land
+  walkHearingDeistance: 5
+  runHearingDeistance: 10
+  jumpAndLandHearingDeistance: 10
+  timeBetweenStep: 0.7
 --- !u!143 &6688267663440127132
 CharacterController:
   m_ObjectHideFlags: 0
