@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsPlayerInSight { get; private set; }
+
+    private BehaviourTree bt;
+
+    private void Start()
     {
-        
+        bt = GetComponent<BehaviourTree>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayerInSight(bool value)
     {
-        
+        IsPlayerInSight = value;
     }
 }

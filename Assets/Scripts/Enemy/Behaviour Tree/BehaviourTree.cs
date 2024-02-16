@@ -5,9 +5,12 @@ using UnityEngine;
 public class BehaviourTree : MonoBehaviour
 {
     private Node rootNode;
+    private Enemy enemy;
 
     private void Start()
     {
+        enemy = GetComponent<Enemy>();
+
         rootNode = new SelectorNode(
             new SequenceNode(
                 new ConditionNode(() => TestCondition()),
@@ -21,9 +24,9 @@ public class BehaviourTree : MonoBehaviour
         rootNode.Execute();
     }
 
-    private bool TestCondition()
+    public bool TestCondition()
     {
-        return true;
+        return enemy.IsPlayerInSight;
     }
 
     private void TestAction_1()

@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.67ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000002624A71BC38 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0000019CD7AB9598 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -18,28 +18,28 @@
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SoundI::release                          :  (0000026247F05908)
-[LOG] SoundI::release                          :     jump (0000026314CFD668)
-[LOG] SoundI::release                          :  (0000026247F047C8)
-[LOG] SoundI::release                          :     land (0000026314CFD188)
-[LOG] SoundI::release                          :  (0000026247F075C8)
-[LOG] SoundI::release                          :     fstep_walk_1 (0000026314CFD9A8)
-[LOG] SoundI::release                          :  (0000026247F061A8)
-[LOG] SoundI::release                          :     fstep_walk_2 (0000026314CFDCE8)
-[LOG] SoundI::release                          :  (0000026247F04AA8)
-[LOG] SoundI::release                          :     fstep_walk_3 (0000026314CFD328)
-[LOG] SoundI::release                          :  (0000026247F06038)
-[LOG] SoundI::release                          :     fstep_walk_4 (0000026314CFD4C8)
-[LOG] SoundI::release                          :  (0000026247F06BB8)
-[LOG] SoundI::release                          :     CC_NMT_Break_Loop (00000262CC7AAAA8)
-[LOG] SoundI::release                          :  (0000026247F07738)
-[LOG] SoundI::release                          :     fstep_run_1 (00000262CD60C768)
-[LOG] SoundI::release                          :  (0000026247F05068)
-[LOG] SoundI::release                          :     fstep_run_2 (0000026314CFD808)
-[LOG] SoundI::release                          :  (0000026247F05798)
-[LOG] SoundI::release                          :     fstep_run_3 (0000026314CFDB48)
-[LOG] SoundI::release                          :  (0000026247F07B88)
-[LOG] SoundI::release                          :     fstep_run_4 (0000026314CFDE88)
+[LOG] SoundI::release                          :  (0000019D359281F8)
+[LOG] SoundI::release                          :     jump (0000019C415C6CB8)
+[LOG] SoundI::release                          :  (0000019D13DB51F8)
+[LOG] SoundI::release                          :     land (0000019BDC9BFD98)
+[LOG] SoundI::release                          :  (0000019D35928648)
+[LOG] SoundI::release                          :     fstep_walk_1 (0000019BDC9BEA18)
+[LOG] SoundI::release                          :  (0000019D35928088)
+[LOG] SoundI::release                          :     fstep_walk_2 (0000019C415C6978)
+[LOG] SoundI::release                          :  (0000019D13DB5088)
+[LOG] SoundI::release                          :     fstep_walk_3 (0000019BDC9BEBB8)
+[LOG] SoundI::release                          :  (0000019D13DB5368)
+[LOG] SoundI::release                          :     fstep_walk_4 (0000019BDC9BED58)
+[LOG] SoundI::release                          :  (0000019D35928368)
+[LOG] SoundI::release                          :     CC_NMT_Break_Loop (0000019C415C6498)
+[LOG] SoundI::release                          :  (0000019D13DB5C08)
+[LOG] SoundI::release                          :     fstep_run_1 (0000019BDCCA23B8)
+[LOG] SoundI::release                          :  (0000019D35928A98)
+[LOG] SoundI::release                          :     fstep_run_2 (0000019C415C3718)
+[LOG] SoundI::release                          :  (0000019D359284D8)
+[LOG] SoundI::release                          :     fstep_run_3 (0000019C415C38B8)
+[LOG] SoundI::release                          :  (0000019D359287B8)
+[LOG] SoundI::release                          :     fstep_run_4 (0000019BDC9BFA58)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
