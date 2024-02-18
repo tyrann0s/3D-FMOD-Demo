@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -53,6 +54,10 @@ public class Player : MonoBehaviour
     private float timeBetweenStep;
     private float timeSinceLastFootstep;
 
+    private Enemy enemy;
+
+    private float curSpeedX, curSpeedY;
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -67,6 +72,8 @@ public class Player : MonoBehaviour
         runSound = FMODUnity.RuntimeManager.CreateInstance(runEvent);
         jumpSound = FMODUnity.RuntimeManager.CreateInstance(jumpEvent);
         landSound = FMODUnity.RuntimeManager.CreateInstance(landEvent);
+
+        enemy = FindObjectOfType<Enemy>();
     }
 
     public Vector3 GetEyesPosition()
@@ -81,8 +88,8 @@ public class Player : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
         isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
+        curSpeedX = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
+        curSpeedY = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
@@ -125,6 +132,13 @@ public class Player : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
+        
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawLine(transform.position, enemy.transform.position, Color.green);
+
         if (characterController.isGrounded)
         {
             if (curSpeedX != 0 || curSpeedY != 0) FootstepSound();
@@ -158,6 +172,8 @@ public class Player : MonoBehaviour
 
     private void MakeNoise(float distance)
     {
+        float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
 
+        if (distanceToEnemy <= distance) enemy.HearingSound(transform.position);
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Room
   - Original Sound
   - Clone Sound
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - Level
   - Retranslator
-  - 
+  - Enemy
   - 
   - 
   - 

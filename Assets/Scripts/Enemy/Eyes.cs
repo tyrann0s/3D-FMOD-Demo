@@ -7,10 +7,16 @@ public class Eyes : MonoBehaviour
     private Enemy enemy;
     private Renderer rend;
 
+    [SerializeField]
+    private LayerMask layerMask;
+
+    private bool inTrigger;
+
     private void Start()
     {
         enemy = GetComponentInParent<Enemy>();
         rend = GetComponent<Renderer>();
+        layerMask = ~layerMask;
     }
 
     private void SetConeColor(Color color)
@@ -23,8 +29,7 @@ public class Eyes : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.PlayerInSight(true);
-            SetConeColor(Color.red);
+            inTrigger = true;
         }
     }
 
@@ -32,7 +37,20 @@ public class Eyes : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.PlayerInSight(false);
+            inTrigger = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!Physics.Linecast(transform.position, enemy.Player.transform.position, layerMask) && inTrigger)
+        {
+            enemy.StopAllCoroutines();
+            enemy.PlayerInSight(true);
+            SetConeColor(Color.red);
+        } else
+        {
+            StartCoroutine(enemy.WatchingTimeout());
             SetConeColor(Color.white);
         }
     }
