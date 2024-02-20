@@ -8,9 +8,6 @@ public class tAudio : MonoBehaviour
     public RaycastHit PlayerHit { get; protected set; }
 
     [SerializeField]
-    private LayerMask portalPlayerLayer;
-
-    [SerializeField]
     private bool isPlayerInSight;
 
     [SerializeField]
@@ -23,34 +20,19 @@ public class tAudio : MonoBehaviour
 
     public virtual bool IsPlayerInSight(Vector3 originPos)
     {
-        if (portalPlayerLayer == LayerMask.GetMask("Player"))
+        if (Physics.Raycast(originPos, (player.GetEyesPosition() - originPos).normalized, out RaycastHit hit, Mathf.Infinity))
         {
-            if (Physics.Raycast(originPos, transform.TransformDirection(player.transform.position - originPos), out RaycastHit hit, Mathf.Infinity, portalPlayerLayer))
+            if (hit.collider.CompareTag("Player"))
             {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    PlayerHit = hit;
-                    isPlayerInSight = true;
+                PlayerHit = hit;
+                isPlayerInSight = true;
 
-                    return true;
-                }
-                else hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
+                hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
+                return true;
             }
-        } else
-        {
-            if (Physics.Raycast(originPos, transform.TransformDirection(player.transform.position - originPos), out RaycastHit hit, Mathf.Infinity))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    PlayerHit = hit;
-                    isPlayerInSight = true;
-
-                    return true;
-                }
-                else hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
-            }
+            
+            hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
         }
-        
 
         isPlayerInSight = false;
         return false;

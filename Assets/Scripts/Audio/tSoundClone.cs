@@ -98,7 +98,7 @@ public class tSoundClone : tSound
 
     private bool IfSeeingSource(tAudio source)
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(source.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, (source.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
         {
             if (hit.collider.CompareTag("Original Sound"))
             {

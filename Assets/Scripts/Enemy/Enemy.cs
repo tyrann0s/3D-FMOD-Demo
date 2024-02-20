@@ -22,11 +22,18 @@ public class Enemy : MonoBehaviour
 
     private float originalSpeed;
 
+    private Animator animator;
+
+    public EnemySounds EnemySounds { get; private set; }
+
     private void Start()
     {
         Player = FindObjectOfType<Player>();
         agent = GetComponent<NavMeshAgent>();
         originalSpeed = agent.speed;
+
+        animator = GetComponent<Animator>();
+        EnemySounds = GetComponent<EnemySounds>();
     }
 
     public void PlayerInSight(bool value)
@@ -57,18 +64,24 @@ public class Enemy : MonoBehaviour
     {
         agent.speed = originalSpeed / 2;
         agent.destination = RandomNavSphere(transform.position, -1);
+        animator.SetFloat("MoveSpeed", .2f);
+        EnemySounds.PlayCreepyVO();
     }
 
     public void MoveToSound()
     {
         agent.speed = originalSpeed;
         agent.destination = LastSoundPosition;
+        animator.SetFloat("MoveSpeed", .5f);
+        EnemySounds.PlayCreepyVO();
     }
 
     public void ChasePlayer()
     {
         agent.speed = originalSpeed * 2;
         agent.destination = Player.transform.position;
+        animator.SetFloat("MoveSpeed", 1f);
+        EnemySounds.PlayCreepyVO();
     }
 
     private Vector3 RandomNavSphere(Vector3 origin, int layermask)
@@ -88,5 +101,13 @@ public class Enemy : MonoBehaviour
     {
         if (agent.remainingDistance <= 1f) return true;
         return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Player.Death();
+        }
     }
 }

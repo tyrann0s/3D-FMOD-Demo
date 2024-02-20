@@ -45,7 +45,6 @@ public class Eyes : MonoBehaviour
     {
         if (!Physics.Linecast(transform.position, enemy.Player.transform.position, layerMask) && inTrigger)
         {
-            enemy.StopAllCoroutines();
             enemy.PlayerInSight(true);
             SetConeColor(Color.red);
         } else

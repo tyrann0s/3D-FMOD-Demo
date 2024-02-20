@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class tSound : tAudio
     [FMODUnity.EventRef]
     protected string soundPath;
     public string SoundPath => soundPath;
+
+    [SerializeField]
+    private bool isPlayedFromStart;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -49,7 +53,7 @@ public class tSound : tAudio
 
         retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
 
-        Play();
+        if (isPlayedFromStart) Play();
         soundInstance.setVolume(startVolume);
     }
 
@@ -73,23 +77,19 @@ public class tSound : tAudio
             }
             else
             {
-                if (player.CurrentRoom != null)
+                if (IsPlayerRoomInSight())
                 {
-                    if (IsPlayerRoomInSight())
-                    {
-                        Physics.Raycast(transform.position, transform.TransformDirection(player.CurrentRoom.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
-                        float dist = hit.distance / maxDistance;
+                    Physics.Raycast(transform.position, (player.CurrentRoom.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity);
+                    float dist = hit.distance / maxDistance;
 
-                        SetSoundParameters(dist);
-                    }
-                    else CastToRetranslator();
+                    SetSoundParameters(dist);
                 }
                 else CastToRetranslator();
             }
         }
         else
         {
-            Physics.Raycast(transform.position, transform.TransformDirection(player.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity, playerLayer);
+            Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity, playerLayer);
 
             float dist = hit.distance / maxDistance;
 
@@ -97,7 +97,7 @@ public class tSound : tAudio
 
             if (allowDebug)
             {
-                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
+                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.white);
             }
         }
     }
@@ -107,14 +107,14 @@ public class tSound : tAudio
         FindRetranslator();
         if (retranslator == null) return;
 
-        Physics.Raycast(transform.position, transform.TransformDirection(retranslator.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity);
+        Physics.Raycast(transform.position, (retranslator.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity);
         float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
 
         SetSoundParameters(dist);
 
         if (allowDebug)
         {
-            Debug.DrawLine(transform.position, retranslator.transform.position, Color.blue);
+            Debug.DrawLine(transform.position, retranslator.transform.position, Color.green);
         }
     }
 
@@ -150,13 +150,16 @@ public class tSound : tAudio
 
     public bool IsPlayerRoomInSight()
     {
-        foreach (Portal portal in player.CurrentRoom.PortalList)
+        if (player.CurrentRoom != null)
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(portal.transform.position - transform.position), out RaycastHit hit, Mathf.Infinity))
-            { 
-                if (hit.collider.CompareTag("Portal"))
+            foreach (Portal portal in player.CurrentRoom.PortalList)
+            {
+                if (Physics.Raycast(transform.position, (portal.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
                 {
-                    return true;
+                    if (hit.collider.CompareTag("Portal"))
+                    {
+                        return true;
+                    }
                 }
             }
         }
@@ -168,7 +171,7 @@ public class tSound : tAudio
     {
         Vector3 direction = gameObject.transform.position - transform.position;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, direction.normalized, out RaycastHit hit, Mathf.Infinity))
         {
             GameObject hitGO = hit.collider.gameObject;
 
@@ -196,6 +199,7 @@ public class tSound : tAudio
 
     public void Play()
     {
+        //soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         soundInstance.start();
     }
 

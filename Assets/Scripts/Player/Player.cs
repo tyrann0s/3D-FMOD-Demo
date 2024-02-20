@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
 
     private float curSpeedX, curSpeedY;
 
+    private GameManager gameManager;
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -74,6 +76,7 @@ public class Player : MonoBehaviour
         landSound = FMODUnity.RuntimeManager.CreateInstance(landEvent);
 
         enemy = FindObjectOfType<Enemy>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public Vector3 GetEyesPosition()
@@ -131,14 +134,10 @@ public class Player : MonoBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
-
-        
     }
 
     private void FixedUpdate()
     {
-        Debug.DrawLine(transform.position, enemy.transform.position, Color.green);
-
         if (characterController.isGrounded)
         {
             if (curSpeedX != 0 || curSpeedY != 0) FootstepSound();
@@ -175,5 +174,11 @@ public class Player : MonoBehaviour
         float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
 
         if (distanceToEnemy <= distance) enemy.HearingSound(transform.position);
+    }
+
+    public void Death()
+    {
+        enemy.EnemySounds.PlayKillPlayerk();
+        gameManager.DeathSequence();
     }
 }
