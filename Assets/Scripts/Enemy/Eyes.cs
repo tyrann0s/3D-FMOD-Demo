@@ -5,7 +5,6 @@ using UnityEngine;
 public class Eyes : MonoBehaviour
 {
     private Enemy enemy;
-    private Renderer rend;
 
     [SerializeField]
     private LayerMask layerMask;
@@ -15,14 +14,7 @@ public class Eyes : MonoBehaviour
     private void Start()
     {
         enemy = GetComponentInParent<Enemy>();
-        rend = GetComponent<Renderer>();
         layerMask = ~layerMask;
-    }
-
-    private void SetConeColor(Color color)
-    {
-        color.a = .5f;
-        rend.material.color = color;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,14 +35,13 @@ public class Eyes : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!Physics.Linecast(transform.position, enemy.Player.transform.position, layerMask) && inTrigger)
+        if (inTrigger && Physics.Raycast(transform.position, (enemy.Player.GetEyesPosition() - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
         {
-            enemy.PlayerInSight(true);
-            SetConeColor(Color.red);
-        } else
-        {
-            StartCoroutine(enemy.WatchingTimeout());
-            SetConeColor(Color.white);
+            if (hit.collider.CompareTag("Player"))
+            {
+                enemy.PlayerInSight(true);
+            } else StartCoroutine(enemy.WatchingTimeout());
+
         }
     }
 }

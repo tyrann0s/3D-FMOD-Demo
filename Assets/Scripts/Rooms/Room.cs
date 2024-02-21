@@ -13,12 +13,16 @@ public class Room : MonoBehaviour
     private List<tSoundOriginal> soundList = new List<tSoundOriginal>();
     private List<tSoundClone> portalSoundsList = new List<tSoundClone>();
 
+    private Player player;
+
     private void Start()
     {
         portalList.AddRange(GetComponentsInChildren<Portal>());
 
         BoxCollider collider = GetComponent<BoxCollider>();
         collider.size = new Vector3(collider.size.x + .1f, collider.size.y + .1f, collider.size.z + .1f);
+
+        player = FindObjectOfType<Player>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,9 +31,16 @@ public class Room : MonoBehaviour
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
-            CreateClonesAtPortals(sound);
+            if (player.CurrentRoom == this)
+            {
+                sound.SetInRoom(false, this);
+            } else
+            { 
+                CreateClonesAtPortals(sound);
 
-            sound.SetInRoom(true, this);
+                sound.SetInRoom(true, this);
+            }
+
             soundList.Add(sound);
         }
 
@@ -40,10 +51,7 @@ public class Room : MonoBehaviour
                 soundClone.StopImmediate();
             }
 
-            foreach (tSoundOriginal soundOriginal in soundList)
-            {
-                soundOriginal.SetInRoom(false, this);
-            }
+            SetSoundsInRoom(false);
 
             TranslateExternalSounds();
 
@@ -65,10 +73,7 @@ public class Room : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            foreach (tSoundOriginal soundOriginal in soundList)
-            {
-                soundOriginal.SetInRoom(true, this);
-            }
+            SetSoundsInRoom(true);
 
             foreach (tSoundClone soundClone in portalSoundsList)
             {
@@ -78,6 +83,14 @@ public class Room : MonoBehaviour
             ClearExternalSound();
 
             other.GetComponent<Player>().SetRoom(null);
+        }
+    }
+
+    private void SetSoundsInRoom(bool value)
+    {
+        foreach (tSoundOriginal soundOriginal in soundList)
+        {
+            soundOriginal.SetInRoom(value, this);
         }
     }
 
