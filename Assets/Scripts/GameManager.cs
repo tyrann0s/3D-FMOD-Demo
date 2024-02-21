@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Image fadeImage;
+
+    [SerializeField]
+    private StudioEventEmitter winSound;
 
     private int targetCollectables;
     private int currentCollectables;
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void WinSequence()
     {
+        winSound.Play();
         StartCoroutine(ShowAnnouncementText("YOU WIN"));
         StartCoroutine(ReloadScene());
     }
