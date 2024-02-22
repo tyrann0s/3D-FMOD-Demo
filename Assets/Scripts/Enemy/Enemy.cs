@@ -86,13 +86,11 @@ public class Enemy : MonoBehaviour
 
     private Vector3 RandomNavSphere(Vector3 origin, int layermask)
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolDistance;
+        Vector3 randomDirection = Random.insideUnitSphere * patrolDistance;
 
         randomDirection += origin;
 
-        NavMeshHit navHit;
-
-        NavMesh.SamplePosition(randomDirection, out navHit, patrolDistance, layermask);
+        NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, patrolDistance, layermask);
 
         return navHit.position;
     }

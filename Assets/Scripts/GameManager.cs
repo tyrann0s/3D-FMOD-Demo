@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         targetCollectables = FindObjectsOfType<Collectable>().Length;
         SetCollectablesText();
-        StartCoroutine(ShowAnnouncementText("COLLECT ALL ITEMS"));
+        StartCoroutine(ShowAnnouncementText($"COLLECT {targetCollectables} ITEMS"));
     }
 
     public void DeathSequence()
