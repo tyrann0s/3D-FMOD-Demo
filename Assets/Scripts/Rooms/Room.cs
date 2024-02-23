@@ -11,9 +11,9 @@ public class Room : MonoBehaviour
     public List<Portal> PortalList => portalList;
 
     private List<tSoundOriginal> soundList = new List<tSoundOriginal>();
-    private List<tSoundClone> portalSoundsList = new List<tSoundClone>();
+    //private List<tSoundClone> portalSoundsList = new List<tSoundClone>();
 
-    private Player player;
+    private SoundManager soundManager;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class Room : MonoBehaviour
         BoxCollider collider = GetComponent<BoxCollider>();
         collider.size = new Vector3(collider.size.x + .1f, collider.size.y + .1f, collider.size.z + .1f);
 
-        player = FindObjectOfType<Player>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,31 +31,27 @@ public class Room : MonoBehaviour
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
-            if (player.CurrentRoom == this)
+            if (soundManager.SMPlayer.CurrentRoom != this)
             {
-                sound.SetInRoom(false, this);
-            } else
-            { 
-                CreateClonesAtPortals(sound);
+                //CreateClonesAtPortals(sound);
 
                 sound.SetInRoom(true, this);
-            }
+            } else sound.SetInRoom(false, this);
 
             soundList.Add(sound);
         }
 
         if (other.CompareTag("Player"))
         {
-            foreach (tSoundClone soundClone in portalSoundsList)
-            {
-                soundClone.StopImmediate();
-            }
+            //foreach (tSoundClone soundClone in portalSoundsList)
+            //{
+            //    soundClone.StopImmediate();
+            //}
 
-            SetSoundsInRoom(false);
+            //TranslateExternalSounds();
 
-            TranslateExternalSounds();
-
-            other.GetComponent<Player>().SetRoom(this);
+            soundManager.SMPlayer.SetRoom(this);
+            soundManager.PlayerInRoom(this);
         }
     }
 
@@ -65,97 +61,90 @@ public class Room : MonoBehaviour
         {
             tSoundOriginal sound = other.GetComponent<tSoundOriginal>();
 
-            if (soundList.Contains(sound))
-            {
-                DeleteClonesAtPortals(sound);
-            }
+            //if (soundList.Contains(sound))
+            //{
+            //    DeleteClonesAtPortals(sound);
+            //}
+
+            if (soundManager.SMPlayer.CurrentRoom == null) sound.SetOutside();
+            else sound.SetInRoom(true, null);
         }
 
         if (other.CompareTag("Player"))
         {
-            SetSoundsInRoom(true);
+            //foreach (tSoundClone soundClone in portalSoundsList)
+            //{
+            //    soundClone.PlayClone();
+            //}
 
-            foreach (tSoundClone soundClone in portalSoundsList)
-            {
-                soundClone.PlayClone();
-            }
+            //ClearExternalSound();
 
-            ClearExternalSound();
-
-            other.GetComponent<Player>().SetRoom(null);
+            soundManager.SMPlayer.SetRoom(null);
+            soundManager.PlayerOutside();
         }
     }
 
-    private void SetSoundsInRoom(bool value)
-    {
-        foreach (tSoundOriginal soundOriginal in soundList)
-        {
-            soundOriginal.SetInRoom(value, this);
-        }
-    }
+    //private void TranslateExternalSounds()
+    //{
+    //    // Собираем все tSound в определенном радиусе и для каждого создаем копию на каждойм портале.
+    //    // Важно сделать чтобы оригинал каждый кадр передавал настройки на свои клоны, чтобы 3д работало адекватно
+    //    // Оригинал отключаем/ставим на него комнатный фильтр
 
-    private void TranslateExternalSounds()
-    {
-        // Собираем все tSound в определенном радиусе и для каждого создаем копию на каждойм портале.
-        // Важно сделать чтобы оригинал каждый кадр передавал настройки на свои клоны, чтобы 3д работало адекватно
-        // Оригинал отключаем/ставим на него комнатный фильтр
+    //    foreach (tSoundOriginal soundOriginal in soundManager.OriginalSounds)
+    //    {
+    //        if (soundOriginal.TargetRoom == null)
+    //        {
+    //            CreateClonesAtPortals(soundOriginal);
+    //            soundOriginal.SetInRoom(true, null);
+    //        }
+    //    }
+    //}
 
-        foreach (tSoundOriginal soundOriginal in FindObjectsOfType<tSoundOriginal>())
-        {
-            if (soundOriginal.TargetRoom == null)
-            {
-                CreateClonesAtPortals(soundOriginal);
-                soundOriginal.SetOutside(true);
-            }
-        }
-    }
+    //private void CreateClonesAtPortals(tSoundOriginal soundOriginal)
+    //{
+    //    //foreach (Portal portal in portalList)
+    //    //{
+    //    //    GameObject go = Instantiate(tSoundPrefab);
+    //    //    go.transform.position = portal.transform.position;
 
-    private void CreateClonesAtPortals(tSoundOriginal soundOriginal)
-    {
-        foreach (Portal portal in portalList)
-        {
-            GameObject go = Instantiate(tSoundPrefab);
-            go.transform.position = portal.transform.position;
+    //    //    tSoundClone tSoundClone = go.GetComponent<tSoundClone>();
+    //    //    tSoundClone.SetUp(soundOriginal);
+    //    //    portalSoundsList.Add(tSoundClone);
+    //    //}
+    //}
 
-            tSoundClone tSoundClone = go.GetComponent<tSoundClone>();
-            tSoundClone.SetUp(soundOriginal);
-            portalSoundsList.Add(tSoundClone);
-        }
-    }
+    //private void ClearExternalSound()
+    //{
+    //    // Собираем все клоны всех tSound'ов и удаляем их, включаем оригинал обратно
+    //    foreach (tSoundOriginal soundOriginal in soundManager.OriginalSounds)
+    //    {
+    //        if (soundOriginal.TargetRoom != this)
+    //        {
+    //            DeleteClonesAtPortals(soundOriginal);
+    //        }
+    //    }
+    //}
 
-    private void ClearExternalSound()
-    {
-        // Собираем все клоны всех tSound'ов и удаляем их, включаем оригинал обратно
-        foreach (tSoundOriginal soundOriginal in FindObjectsOfType<tSoundOriginal>())
-        {
-            if (soundOriginal.TargetRoom == null)
-            {
-                DeleteClonesAtPortals(soundOriginal);
-                soundOriginal.SetOutside(false);
-            }
-        }
-    }
+    //private void DeleteClonesAtPortals(tSoundOriginal soundOriginal)
+    //{
+    //    List<tSoundClone> sounds2Delete = new List<tSoundClone>();
 
-    private void DeleteClonesAtPortals(tSoundOriginal soundOriginal)
-    {
-        List<tSoundClone> sounds2Delete = new List<tSoundClone>();
+    //    foreach (tSoundClone soundClone in portalSoundsList)
+    //    {
+    //        sounds2Delete.Add(soundClone);
+    //    }
 
-        foreach (tSoundClone soundClone in portalSoundsList)
-        {
-            sounds2Delete.Add(soundClone);
-        }
+    //    foreach (tSoundClone soundClone in sounds2Delete)
+    //    {
+    //        if (soundClone.OriginalSound == soundOriginal)
+    //        {
+    //            soundClone.StopImmediate();
+    //            portalSoundsList.Remove(soundClone);
+    //            Destroy(soundClone.gameObject);
+    //        }
+    //    }
 
-        foreach (tSoundClone soundClone in sounds2Delete)
-        {
-            if (soundClone.OriginalSound == soundOriginal)
-            {
-                soundClone.StopImmediate();
-                portalSoundsList.Remove(soundClone);
-                Destroy(soundClone.gameObject);
-            }
-        }
-
-        soundOriginal.SetInRoom(false, this);
-        soundList.Remove(soundOriginal);
-    }
+    //    soundOriginal.SetInRoom(false, this);
+    //    soundList.Remove(soundOriginal);
+    //}
 }

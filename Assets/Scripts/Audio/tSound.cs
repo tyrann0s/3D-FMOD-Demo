@@ -25,9 +25,6 @@ public class tSound : tAudio
     [SerializeField]
     private LayerMask playerLayer;
 
-    [SerializeField]
-    private bool allowDebug;
-
     [Header("Debug")]
     [SerializeField]
     private float isFiltered;
@@ -45,11 +42,16 @@ public class tSound : tAudio
     private Retranslator retranslator;
     public Retranslator Retranslator => retranslator;
     private List<Retranslator> retranslatorList = new List<Retranslator>();
+
+    protected SoundManager soundManager;
     
     protected virtual void Start()
     {
         soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundPath);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+
+        soundManager = FindObjectOfType<SoundManager>();
+        soundManager.AddSound(this);
 
         retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
 
@@ -63,17 +65,12 @@ public class tSound : tAudio
         {
             if (IsPlayerInSight(transform.position))
             {
-                FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+                RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
                 if (retranslator != null) retranslator.Set(false);
 
                 float dist = PlayerHit.distance / maxDistance;
 
                 SetSoundParameters(dist);
-
-                if (allowDebug)
-                {
-                    Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
-                }
             }
             else
             {
@@ -89,16 +86,14 @@ public class tSound : tAudio
         }
         else
         {
+            RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+            if (retranslator != null) retranslator.Set(false);
+
             Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity, playerLayer);
 
             float dist = hit.distance / maxDistance;
 
             SetSoundParameters(dist);
-
-            if (allowDebug)
-            {
-                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.white);
-            }
         }
     }
 
@@ -111,11 +106,6 @@ public class tSound : tAudio
         float dist = (hit.distance + retranslator.PlayerHit.distance + retranslatorDistanceOffset) / maxDistance;
 
         SetSoundParameters(dist);
-
-        if (allowDebug)
-        {
-            Debug.DrawLine(transform.position, retranslator.transform.position, Color.green);
-        }
     }
 
     protected virtual void SetSoundParameters(float input)
@@ -135,7 +125,7 @@ public class tSound : tAudio
         {
             float dist = Vector3.Distance(retranslatorList[i].transform.position, player.transform.position);
 
-            if (IsInSight(retranslatorList[i].gameObject) && dist < lastDist)
+            if (IsInSight(retranslatorList[i].gameObject) && retranslatorList[i].SeePlayer && dist < lastDist)
             {
                 lastDist = dist;
                 retranslator = retranslatorList[i];
@@ -144,7 +134,7 @@ public class tSound : tAudio
 
         if (retranslator == null) return;
 
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, retranslator.transform);
+        RuntimeManager.AttachInstanceToGameObject(soundInstance, retranslator.transform);
         retranslator.Set(true);
     }
 
@@ -194,6 +184,7 @@ public class tSound : tAudio
 
     private void OnDestroy()
     {
+        soundManager.RemoveSound(this);
         soundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 

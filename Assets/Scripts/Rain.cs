@@ -18,9 +18,12 @@ public class Rain : MonoBehaviour
 
     private void Update()
     {
+        transform.rotation = player.transform.rotation;
+
         if (player.CurrentRoom == null)
         {
             transform.position = player.transform.position;
+            
             if (currentSize != 5) SetVFXShape(5);
         }
         else if (currentSize != 1) SetVFXShape(1);

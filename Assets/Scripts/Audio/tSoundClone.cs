@@ -82,7 +82,6 @@ public class tSoundClone : tSound
                     float distanceToOriginal = Vector3.Distance(OriginalSound.transform.position, transform.position) / OriginalSound.MaxDistance;
                     lastDistance = distanceToOriginal + input;
                     if (IfSeeingSource(OriginalSound)) base.SetSoundParameters(lastDistance);
-                    Debug.DrawLine(transform.position, OriginalSound.transform.position, Color.blue);
                 }
                 else
                 {
@@ -90,7 +89,6 @@ public class tSoundClone : tSound
                     float distanceToRetranslator = Vector3.Distance(OriginalSound.transform.position, OriginalSound.Retranslator.transform.position) / OriginalSound.MaxDistance;
                     lastDistance = distanceToOriginal + distanceToRetranslator + input;
                     if (IfSeeingSource(OriginalSound.Retranslator)) base.SetSoundParameters(lastDistance);
-                    Debug.DrawLine(transform.position, OriginalSound.Retranslator.transform.position, Color.blue);
                 }
             }         
         } 

@@ -9,25 +9,19 @@ public class tSoundOriginal : tSound
         if (value)
         {
             soundInstance.setParameterByName("RoomFilter", 1);
-            TargetRoom = room;
         }
         else
         {
             soundInstance.setParameterByName("RoomFilter", 0);
-            TargetRoom = null;
         }
+
+        TargetRoom = room;
     }
 
-    public void SetOutside(bool value)
+    public void SetOutside()
     {
-        if (value)
-        {
-            soundInstance.setParameterByName("RoomFilter", 1);
-        }
-        else
-        {
-            soundInstance.setParameterByName("RoomFilter", 0);
-        }
+        soundInstance.setParameterByName("RoomFilter", 0);
+        TargetRoom = null;
     }
 
     public float GetVolume()

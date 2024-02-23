@@ -8,7 +8,7 @@
 [LOG] SystemI::init                            : Output requires a sample rate of 44100Hz, resampling will occur.
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000021367D0A478 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000002973D9BA858 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -19,3 +19,72 @@
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SoundI::release                          :  (000002980BC603A8)
+[LOG] SoundI::release                          :     jump (000002980BD30BF8)
+[LOG] SoundI::release                          :  (000002980FEAA668)
+[LOG] SoundI::release                          :     enemy_kill_player (000002980BD310D8)
+[LOG] SoundI::release                          :  (000002980FEAAAB8)
+[LOG] SoundI::release                          :     enemy_fstep_run_1 (000002980E479C38)
+[LOG] SoundI::release                          :  (000002980BC60518)
+[LOG] SoundI::release                          :     enemy_fstep_run_2 (000002980608F7D8)
+[LOG] SoundI::release                          :  (000002980BC60688)
+[LOG] SoundI::release                          :     enemy_fstep_run_3 (000002980608F498)
+[LOG] SoundI::release                          :  (000002980A3B6A48)
+[LOG] SoundI::release                          :     enemy_fstep_run_4 (000002980608F638)
+[LOG] SoundI::release                          :  (000002980BC60AD8)
+[LOG] SoundI::release                          :     fstep_walk_1 (000002980608FB18)
+[LOG] SoundI::release                          :  (000002980BC600C8)
+[LOG] SoundI::release                          :     fstep_walk_2 (000002980BD31758)
+[LOG] SoundI::release                          :  (000002980A3B61A8)
+[LOG] SoundI::release                          :     fstep_walk_3 (00000298063E3538)
+[LOG] SoundI::release                          :  (000002980A3B68D8)
+[LOG] SoundI::release                          :     fstep_walk_4 (00000298063E3D58)
+[LOG] SoundI::release                          :  (000002980A3B6BB8)
+[LOG] SoundI::release                          :     enemy_fstep_walk_1 (000002980608FE58)
+[LOG] SoundI::release                          :  (000002980A3B6D28)
+[LOG] SoundI::release                          :     enemy_fstep_walk_2 (000002980608F158)
+[LOG] SoundI::release                          :  (000002980FEAA218)
+[LOG] SoundI::release                          :     enemy_fstep_walk_3 (000002980E47A118)
+[LOG] SoundI::release                          :  (000002980FEAA948)
+[LOG] SoundI::release                          :     enemy_fstep_walk_4 (000002980BD30F38)
+[LOG] SoundI::release                          :  (000002980A3B6488)
+[LOG] SoundI::release                          :     fstep_run_1 (00000298063E3058)
+[LOG] SoundI::release                          :  (000002980BC60DB8)
+[LOG] SoundI::release                          :     fstep_run_2 (000002980BD31418)
+[LOG] SoundI::release                          :  (000002980BC60238)
+[LOG] SoundI::release                          :     fstep_run_3 (000002980BD318F8)
+[LOG] SoundI::release                          :  (000002980BC607F8)
+[LOG] SoundI::release                          :     fstep_run_4 (000002980608FCB8)
+[LOG] SoundI::release                          :  (000002980A3B6768)
+[LOG] SoundI::release                          :     land (000002980608F978)
+[LOG] SoundI::release                          :  (000002980BC60C48)
+[LOG] SoundI::release                          :     coll_idle (000002980BD315B8)
+[LOG] SoundI::release                          :  (000002980FEAA388)
+[LOG] SoundI::release                          :     enemy_creepy_vo_1 (000002980BD31278)
+[LOG] SoundI::release                          : ambience (000002973D9ECB68)
+[LOG] SoundI::release                          :     ambience (000002980E479F78)
+[LOG] SoundI::release                          :     ambience (000002973D9EC658)
+[LOG] SoundI::release                          : rain (00000298064C5558)
+[LOG] SoundI::release                          :     rain (000002973F0A99B8)
+[LOG] SoundI::release                          :     rain (000002973F0ABA78)
+[LOG] SoundI::release                          : music (00000298064C6128)
+[LOG] SoundI::release                          :     music (000002973F0A9678)
+[LOG] SoundI::release                          :     music (000002973F0ABDD8)
+[LOG] SoundI::release                          :  (000002980FEAA4F8)
+[LOG] SoundI::release                          :     enemy_creepy_vo_2 (000002980E479DD8)
+[LOG] SoundI::release                          :  (000002980A3B6038)
+[LOG] SoundI::release                          :     enemy_creepy_vo_3 (000002980608F2F8)
+[LOG] SoundI::release                          :  (000002980BC60968)
+[LOG] SoundI::release                          :     enemy_creepy_vo_4 (000002980BD30D98)
+[LOG] SoundI::release                          :  (000002980A3B6318)
+[LOG] SoundI::release                          :     enemy_creepy_vo_5 (00000298063E3398)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
