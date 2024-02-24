@@ -47,11 +47,10 @@ public class tSound : tAudio
     
     protected virtual void Start()
     {
-        soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundPath);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+        soundInstance = RuntimeManager.CreateInstance(soundPath);
+        RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
 
         soundManager = FindObjectOfType<SoundManager>();
-        soundManager.AddSound(this);
 
         retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
 
@@ -63,7 +62,7 @@ public class tSound : tAudio
     {
         if (TargetRoom == null)
         {
-            if (IsPlayerInSight(transform.position))
+            if (IsPlayerInSight())
             {
                 RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
                 if (retranslator != null) retranslator.Set(false);
@@ -97,6 +96,14 @@ public class tSound : tAudio
         }
     }
 
+    protected virtual void SetSoundParameters(float input)
+    {
+        float volume = Mathf.Clamp01(1 - input);
+
+        soundInstance.setVolume(volume);
+        soundInstance.setParameterByName("DistanceFilter", volume);
+    }
+
     private void CastToRetranslator()
     {
         FindRetranslator();
@@ -108,14 +115,6 @@ public class tSound : tAudio
         SetSoundParameters(dist);
     }
 
-    protected virtual void SetSoundParameters(float input)
-    { 
-        float volume = Mathf.Clamp01(1 - input);
-
-        soundInstance.setVolume(volume);
-        soundInstance.setParameterByName("DistanceFilter", volume);
-    }
-
     private void FindRetranslator()
     {
         if (retranslator != null) retranslator.Set(false);
@@ -125,7 +124,7 @@ public class tSound : tAudio
         {
             float dist = Vector3.Distance(retranslatorList[i].transform.position, player.transform.position);
 
-            if (IsInSight(retranslatorList[i].gameObject) && retranslatorList[i].SeePlayer && dist < lastDist)
+            if (IsInSight(retranslatorList[i].gameObject) && retranslatorList[i].IsPlayerInSight() && dist < lastDist)
             {
                 lastDist = dist;
                 retranslator = retranslatorList[i];
@@ -167,7 +166,7 @@ public class tSound : tAudio
 
             if (hit.collider.CompareTag("Retranslator"))
             {
-                if (hitGO.GetComponent<Retranslator>().IsPlayerInSight(hitGO.transform.position))
+                if (hitGO.GetComponent<Retranslator>().IsPlayerInSight())
                 {
                     return true;
                 }
@@ -182,9 +181,8 @@ public class tSound : tAudio
         return false;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
-        soundManager.RemoveSound(this);
         soundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 

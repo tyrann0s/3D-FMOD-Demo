@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private List<tSound> sounds = new List<tSound>();
-    public List<tSoundOriginal> OriginalSounds { get; private set; } = new List<tSoundOriginal>();
+    private List<tSoundOriginal> sounds = new List<tSoundOriginal>();
 
     public Player SMPlayer { get; private set; }
 
@@ -14,21 +13,19 @@ public class SoundManager : MonoBehaviour
         SMPlayer = FindObjectOfType<Player>();
     }
 
-    public void AddSound(tSound sound)
+    public void AddSound(tSoundOriginal sound)
     {
         sounds.Add(sound);
-
-        if (sound.GetType() == typeof(tSoundOriginal)) OriginalSounds.Add((tSoundOriginal)sound);
     }
 
-    public void RemoveSound(tSound sound)
+    public void RemoveSound(tSoundOriginal sound)
     {
         sounds.Remove(sound);
     }
 
-    public void PlayerInRoom(Room room)
+    public void PlayerInRoom()
     {
-        foreach (tSoundOriginal sound in OriginalSounds)
+        foreach (tSoundOriginal sound in sounds)
         {
             if (sound.TargetRoom == null)
             {
@@ -39,12 +36,13 @@ public class SoundManager : MonoBehaviour
 
     public void PlayerOutside()
     {
-        foreach (tSoundOriginal sound in OriginalSounds)
+        foreach (tSoundOriginal sound in sounds)
         {
             if (sound.TargetRoom != null)
             {
                 sound.SetInRoom(true, sound.TargetRoom);
             }
+            else sound.SetOutside();
         }
     }
 }

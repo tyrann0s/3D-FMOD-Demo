@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class tSoundOriginal : tSound
 {
+    protected override void Start()
+    {
+        base.Start();
+        soundManager.AddSound(this);
+    }
+
     public void SetInRoom(bool value, Room room)
     {
         if (value)
         {
-            soundInstance.setParameterByName("RoomFilter", 1);
+            SetRoomFilter(1);
         }
         else
         {
-            soundInstance.setParameterByName("RoomFilter", 0);
+            SetRoomFilter(0);
         }
 
         TargetRoom = room;
@@ -20,13 +26,18 @@ public class tSoundOriginal : tSound
 
     public void SetOutside()
     {
-        soundInstance.setParameterByName("RoomFilter", 0);
+        SetRoomFilter(0);
         TargetRoom = null;
     }
 
-    public float GetVolume()
+    private void SetRoomFilter(float value)
     {
-        soundInstance.getVolume(out float result);
-        return result;
+        soundInstance.setParameterByName("RoomFilter", value);
+    }
+
+    protected override void OnDestroy()
+    {
+        soundManager.RemoveSound(this);
+        base.OnDestroy();
     }
 }

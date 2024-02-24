@@ -18,9 +18,9 @@ public class tAudio : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
-    public virtual bool IsPlayerInSight(Vector3 originPos)
+    public virtual bool IsPlayerInSight()
     {
-        if (Physics.Raycast(originPos, (player.GetEyesPosition() - originPos).normalized, out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, (player.GetEyesPosition() - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
         {
             if (hit.collider.CompareTag("Player"))
             {
