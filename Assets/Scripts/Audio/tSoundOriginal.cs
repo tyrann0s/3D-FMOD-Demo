@@ -12,14 +12,8 @@ public class tSoundOriginal : tSound
 
     public void SetInRoom(bool value, Room room)
     {
-        if (value)
-        {
-            SetRoomFilter(1);
-        }
-        else
-        {
-            SetRoomFilter(0);
-        }
+        if (value) SetRoomFilter(1);
+        else SetRoomFilter(0);
 
         TargetRoom = room;
     }

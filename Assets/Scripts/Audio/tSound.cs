@@ -71,12 +71,12 @@ public class tSound : tAudio
             }
             else
             {
-                if (IsPlayerRoomInSight())
+                if (player.CurrentRoom != null)
                 {
                     RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
                     SetRetranslator(false);
 
-                    Physics.Raycast(transform.position, (player.CurrentRoom.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity);
+                    Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity);
                     float dist = hit.distance / maxDistance;
 
                     SetSoundParameters(dist);
