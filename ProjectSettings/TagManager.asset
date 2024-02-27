@@ -10,6 +10,7 @@ TagManager:
   - Original Sound
   - Clone Sound
   - Enemy
+  - BoxWall
   layers:
   - Default
   - TransparentFX

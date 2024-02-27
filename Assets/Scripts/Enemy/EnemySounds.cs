@@ -31,7 +31,7 @@ public class EnemySounds : MonoBehaviour
         creepyVO.Play();
     }
 
-    public void PlayKillPlayerk()
+    public void PlayKillPlayer()
     {
         killPlayer.Play();
     }

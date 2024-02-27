@@ -7,12 +7,6 @@ public class tAudio : MonoBehaviour
     protected Player player;
     public RaycastHit PlayerHit { get; protected set; }
 
-    [SerializeField]
-    private bool isPlayerInSight;
-
-    [SerializeField]
-    private string hittedObject;
-
     private void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -25,16 +19,11 @@ public class tAudio : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 PlayerHit = hit;
-                isPlayerInSight = true;
 
-                hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
                 return true;
             }
-            
-            hittedObject = hit.collider.tag.ToString() + "/" + hit.collider.gameObject.name;
         }
 
-        isPlayerInSight = false;
         return false;
     }
 }

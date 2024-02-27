@@ -7,10 +7,6 @@ public class TaskPatrol : Node
 {
     private Enemy enemy;
 
-    private bool waiting = false;
-    private float waitCounter = 0;
-    private float waitTime = 5;
-
     public TaskPatrol(Enemy _enemy)
     {
         enemy = _enemy;

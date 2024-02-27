@@ -21,7 +21,6 @@ public class Retranslator : tAudio
             if (IsPlayerInSight())
             {
                 SeePlayer = true;
-                Debug.DrawLine(transform.position, player.GetEyesPosition(), Color.blue);
             }
             else SeePlayer = false;
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1672392032498704563}
   - component: {fileID: 3915645827707289518}
   - component: {fileID: 7677439571362040137}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Retranslator
   m_TagString: Retranslator
   m_Icon: {fileID: 0}

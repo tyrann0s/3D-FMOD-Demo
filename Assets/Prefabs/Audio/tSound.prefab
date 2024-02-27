@@ -50,7 +50,7 @@ MonoBehaviour:
   soundPath: event:/TestEvent
   isPlayedFromStart: 0
   startVolume: 0
-  maxDistance: 20
+  maxDistance: 15
   retranslatorDistanceOffset: 0.5
   playerLayer:
     serializedVersion: 2

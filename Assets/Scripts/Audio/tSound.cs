@@ -52,8 +52,6 @@ public class tSound : tAudio
 
         soundManager = FindObjectOfType<SoundManager>();
 
-        retranslatorList.AddRange(FindObjectsOfType<Retranslator>());
-
         if (isPlayedFromStart) Play();
         soundInstance.setVolume(startVolume);
     }
@@ -65,7 +63,7 @@ public class tSound : tAudio
             if (IsPlayerInSight())
             {
                 RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
-                if (retranslator != null) retranslator.Set(false);
+                SetRetranslator(false);
 
                 float dist = PlayerHit.distance / maxDistance;
 
@@ -75,6 +73,9 @@ public class tSound : tAudio
             {
                 if (IsPlayerRoomInSight())
                 {
+                    RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
+                    SetRetranslator(false);
+
                     Physics.Raycast(transform.position, (player.CurrentRoom.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity);
                     float dist = hit.distance / maxDistance;
 
@@ -86,13 +87,25 @@ public class tSound : tAudio
         else
         {
             RuntimeManager.AttachInstanceToGameObject(soundInstance, transform);
-            if (retranslator != null) retranslator.Set(false);
+            SetRetranslator(false);
 
             Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, out RaycastHit hit, Mathf.Infinity, playerLayer);
 
             float dist = hit.distance / maxDistance;
 
             SetSoundParameters(dist);
+        }
+    }
+
+    private void SetRetranslator(bool value)
+    {
+        if (value && retranslator != null)
+        {
+            retranslator.Set(value);
+        } else if (retranslator != null)
+        {
+            retranslator.Set(value);
+            retranslator = null;
         }
     }
 
@@ -117,7 +130,18 @@ public class tSound : tAudio
 
     private void FindRetranslator()
     {
-        if (retranslator != null) retranslator.Set(false);
+        SetRetranslator(false);
+        
+        LayerMask layerMask = LayerMask.GetMask("Retranslator");
+
+        List<Collider> colliders = new List<Collider>();
+        colliders.AddRange(Physics.OverlapSphere(transform.position, maxDistance, layerMask));
+
+        for (int i = 0; i < colliders.Count; i++)
+        {
+            retranslatorList.Add(colliders[i].GetComponent<Retranslator>());
+        }
+
         float lastDist = maxDistance;
 
         for (int i = 0; i < retranslatorList.Count; i++)
@@ -131,10 +155,12 @@ public class tSound : tAudio
             }
         }
 
+        retranslatorList.Clear();
+
         if (retranslator == null) return;
 
         RuntimeManager.AttachInstanceToGameObject(soundInstance, retranslator.transform);
-        retranslator.Set(true);
+        SetRetranslator(true);
     }
 
     public bool IsPlayerRoomInSight()
@@ -188,7 +214,6 @@ public class tSound : tAudio
 
     public void Play()
     {
-        //soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         soundInstance.start();
     }
 

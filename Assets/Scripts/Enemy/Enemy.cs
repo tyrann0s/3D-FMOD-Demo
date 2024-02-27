@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
 
     private Animator animator;
 
-    public EnemySounds EnemySounds { get; private set; }
+    public EnemySounds EnemySound { get; private set; }
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
         originalSpeed = agent.speed;
 
         animator = GetComponent<Animator>();
-        EnemySounds = GetComponent<EnemySounds>();
+        EnemySound = GetComponent<EnemySounds>();
     }
 
     public void PlayerInSight(bool value)
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
         agent.speed = originalSpeed / 2;
         agent.destination = RandomNavSphere(transform.position, -1);
         animator.SetFloat("MoveSpeed", .2f);
-        EnemySounds.PlayCreepyVO();
+        EnemySound.PlayCreepyVO();
     }
 
     public void MoveToSound()
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         agent.speed = originalSpeed;
         agent.destination = LastSoundPosition;
         animator.SetFloat("MoveSpeed", .5f);
-        EnemySounds.PlayCreepyVO();
+        EnemySound.PlayCreepyVO();
     }
 
     public void ChasePlayer()
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
         agent.speed = originalSpeed * 2;
         agent.destination = Player.transform.position;
         animator.SetFloat("MoveSpeed", 1f);
-        EnemySounds.PlayCreepyVO();
+        EnemySound.PlayCreepyVO();
     }
 
     private Vector3 RandomNavSphere(Vector3 origin, int layermask)
@@ -105,6 +105,10 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GetComponent<EnemyBT>().StopTree();
+            agent.isStopped = true;
+            animator.SetFloat("MoveSpeed", 0);
+            EnemySound.PlayKillPlayer();
             Player.Death();
         }
     }

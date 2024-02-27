@@ -86,10 +86,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
-        // Press Left Shift to run
+
         isRunning = Input.GetKey(KeyCode.LeftShift);
         curSpeedX = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
         curSpeedY = CanMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
@@ -114,19 +113,14 @@ public class Player : MonoBehaviour
             isJumping = false;
         }
 
-        // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
-        // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
-        // as an acceleration (ms^-2)
         if (!characterController.isGrounded)
         {
             moveDirection.y -= gravity * Time.deltaTime;
             isJumping = true;
         }
 
-        // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
 
-        // Player and Camera rotation
         if (CanMove)
         {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
@@ -165,7 +159,7 @@ public class Player : MonoBehaviour
                 MakeNoise(walkHearingDeistance);
             }
 
-            timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
+            timeSinceLastFootstep = Time.time;
         }
     }
 
@@ -178,7 +172,7 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
-        enemy.EnemySounds.PlayKillPlayerk();
+        CanMove = false;
         gameManager.DeathSequence();
     }
 }

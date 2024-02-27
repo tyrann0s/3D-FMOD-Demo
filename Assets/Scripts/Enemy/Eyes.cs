@@ -6,15 +6,11 @@ public class Eyes : MonoBehaviour
 {
     private Enemy enemy;
 
-    [SerializeField]
-    private LayerMask layerMask;
-
     private bool inTrigger;
 
     private void Start()
     {
         enemy = GetComponentInParent<Enemy>();
-        layerMask = ~layerMask;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,11 +33,10 @@ public class Eyes : MonoBehaviour
     {
         if (inTrigger && Physics.Raycast(transform.position, (enemy.Player.GetEyesPosition() - transform.position).normalized, out RaycastHit hit, Mathf.Infinity))
         {
-            if (hit.collider.CompareTag("Player"))
-            {
-                enemy.PlayerInSight(true);
-            } else StartCoroutine(enemy.WatchingTimeout());
+            if (hit.collider.CompareTag("BoxWall")) return;
 
+            if (hit.collider.CompareTag("Player")) enemy.PlayerInSight(true);
+            else StartCoroutine(enemy.WatchingTimeout());
         }
     }
 }

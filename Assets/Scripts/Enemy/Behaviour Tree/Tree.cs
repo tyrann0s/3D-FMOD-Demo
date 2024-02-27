@@ -19,6 +19,11 @@ namespace BehaviourTree
         }
 
         protected abstract Node SetupTree();
+
+        public void StopTree()
+        {
+            root = null;
+        }
     }
 }
 
