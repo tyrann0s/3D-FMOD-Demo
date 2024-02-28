@@ -8,7 +8,7 @@
 [LOG] SystemI::init                            : Output requires a sample rate of 44100Hz, resampling will occur.
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000160453BFAD8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0000029741590D68 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -19,154 +19,223 @@
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000160491C36D8
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000160491C36D8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000160491C2448
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000160491C2448
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000160491C3A38
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000160491C3A38
 [LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
 [LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 1467872
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 25952
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000014DDDFF208
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A4C77FF0D8
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFC2BB760E0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFC2BB760B0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFC2BB761B0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFC2BB76270
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001604C0B4CF8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFBB19860E0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFBB19860B0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFBB19861B0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFBB1986270
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000297DB3E3068
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='coll_grab', format=5, channels=2, frequency=48000, lengthbytes=55968, lengthpcm=209299, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.248291.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1467872
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 25952
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000A4C77FF0D8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFBB19860E0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFBB19860B0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFBB19861B0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFBB1986270
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000297DB7DBD38
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='win', format=5, channels=2, frequency=48000, lengthbytes=25504, lengthpcm=104572, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.133057.
 [LOG] SystemI::createSound                     : filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000001604EF31078 : node = 0000016043E9CE50
-[LOG] SystemI::createSound                     : add node to async list : head = 0000016046B59CA8.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000001604EF31078
+[LOG] SystemI::createSound                     : setdata soundi = 000002982D20C178 : node = 0000029837EEC340
+[LOG] SystemI::createSound                     : add node to async list : head = 00000297DB4402E8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D20C178
 [LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000016043E9CF60
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029837EEC450
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSound                     :     filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
 [LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     :     setdata soundi = 000001604EF31C48 : node = 0000016043E9C950
-[LOG] SystemI::createSound                     :     add node to async list : head = 0000016046B59CA8.  list count = 0
+[LOG] SystemI::createSound                     :     setdata soundi = 000002982D20CD48 : node = 0000029837EEE3C0
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000297DB4402E8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience', format=5, channels=2, frequency=48000, lengthbytes=205696, lengthpcm=837663, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.120514.
 [LOG] SystemI::createSound                     :     filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
 [LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     :     setdata soundi = 000001604EF32668 : node = 0000016043E9C810
-[LOG] SystemI::createSound                     :     add node to async list : head = 0000016046B59CA8.  list count = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience', format=5, channels=2, frequency=48000, lengthbytes=205696, lengthpcm=837663, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.120514.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000001604EF31078
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000001604EF31C48
+[LOG] SystemI::createSound                     :     setdata soundi = 000002982D20C4D8 : node = 0000029837EEBF80
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000297DB4402E8.  list count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D20C178
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D20CD48
 [LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000016043E9CA60
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029837EEE4D0
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             :     Stream 0/1: name='rain', format=5, channels=2, frequency=48000, lengthbytes=261088, lengthpcm=837663, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.350677.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000001604EF31C48
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000001604EF32668
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D20CD48
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D20C4D8
 [LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000016043E9C920
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000029837EEC090
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music', format=5, channels=2, frequency=48000, lengthbytes=419776, lengthpcm=1675480, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.365570.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000001604EF32668
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000001604EF31FA8
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000001604EF31FA8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000001604EF35E18
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000001604EF35E18
-[LOG] SoundI::release                          : music (00000160491C1BD8)
-[LOG] SoundI::release                          :     music (00000160E799A318)
-[LOG] SoundI::release                          :     music (00000160491C3A38)
-[LOG] SoundI::release                          : rain (00000160491C1D88)
-[LOG] SoundI::release                          :     rain (00000160E7997F58)
-[LOG] SoundI::release                          :     rain (00000160491C36D8)
-[LOG] SoundI::release                          : ambience (00000160491C3018)
-[LOG] SoundI::release                          :     ambience (00000160E7999E38)
-[LOG] SoundI::release                          :     ambience (00000160491C2448)
-[LOG] SoundI::release                          :  (00000160446D4D38)
-[LOG] SoundI::release                          :     coll_grab (0000015FD321E7D8)
-[LOG] SoundI::release                          :  (0000016046BB1808)
-[LOG] SoundI::release                          :     jump (00000160420B9308)
-[LOG] SoundI::release                          :  (0000016046BB1528)
-[LOG] SoundI::release                          :     enemy_kill_player (00000160420B8E28)
-[LOG] SoundI::release                          :  (00000160457EB4D8)
-[LOG] SoundI::release                          :     enemy_fstep_run_1 (00000160E799A998)
-[LOG] SoundI::release                          :  (0000016046BB13B8)
-[LOG] SoundI::release                          :     enemy_fstep_run_2 (00000160420BA1A8)
-[LOG] SoundI::release                          :  (00000160E77ADD78)
-[LOG] SoundI::release                          :     enemy_fstep_run_3 (000001604225F958)
-[LOG] SoundI::release                          :  (00000160E77AE1C8)
-[LOG] SoundI::release                          :     enemy_fstep_run_4 (000001604225DDB8)
-[LOG] SoundI::release                          :  (00000160E77AE058)
-[LOG] SoundI::release                          :     fstep_walk_1 (00000160420BA348)
-[LOG] SoundI::release                          :  (0000016046BB1C58)
-[LOG] SoundI::release                          :     fstep_walk_2 (00000160420B8FC8)
-[LOG] SoundI::release                          :  (00000160E77AE4A8)
-[LOG] SoundI::release                          :     fstep_walk_3 (000001604225E0F8)
-[LOG] SoundI::release                          :  (00000160E77AD928)
-[LOG] SoundI::release                          :     fstep_walk_4 (000001604225EF98)
-[LOG] SoundI::release                          :  (00000160E77ADEE8)
-[LOG] SoundI::release                          :     enemy_fstep_walk_1 (000001604225EC58)
-[LOG] SoundI::release                          :  (00000160E77AE338)
-[LOG] SoundI::release                          :     enemy_fstep_walk_2 (000001604225DF58)
-[LOG] SoundI::release                          :  (00000160457EB1F8)
-[LOG] SoundI::release                          :     enemy_fstep_walk_3 (00000160E79980F8)
-[LOG] SoundI::release                          :  (0000016046BB1698)
-[LOG] SoundI::release                          :     enemy_fstep_walk_4 (00000160420B8948)
-[LOG] SoundI::release                          :  (00000160453B79A8)
-[LOG] SoundI::release                          :     fstep_run_1 (000001604225E298)
-[LOG] SoundI::release                          :  (0000016046BB1978)
-[LOG] SoundI::release                          :     fstep_run_2 (00000160420B97E8)
-[LOG] SoundI::release                          :  (0000016046BB1AE8)
-[LOG] SoundI::release                          :     fstep_run_3 (00000160420B9988)
-[LOG] SoundI::release                          :  (00000160E77AE618)
-[LOG] SoundI::release                          :     fstep_run_4 (000001604225E438)
-[LOG] SoundI::release                          :  (00000160E77ADC08)
-[LOG] SoundI::release                          :     land (000001604225EDF8)
-[LOG] SoundI::release                          :  (0000016046BB1DC8)
-[LOG] SoundI::release                          :     coll_idle (00000160420B9B28)
-[LOG] SoundI::release                          :  (0000016046BB10D8)
-[LOG] SoundI::release                          :     enemy_creepy_vo_1 (00000160420B7908)
-[LOG] SoundI::release                          : ambience (000001604EF31078)
-[LOG] SoundI::release                          :     ambience (0000015FD321F198)
-[LOG] SoundI::release                          :     ambience (000001604EF31FA8)
-[LOG] SoundI::release                          : rain (000001604EF31C48)
-[LOG] SoundI::release                          :     rain (0000015FD321DE18)
-[LOG] SoundI::release                          :     rain (000001604EF35E18)
-[LOG] SoundI::release                          : music (000001604EF32668)
-[LOG] SoundI::release                          :     music (0000015FD321DC78)
-[LOG] SoundI::release                          :     music (000001604EF36688)
-[LOG] SoundI::release                          :  (00000160457EB648)
-[LOG] SoundI::release                          :     enemy_creepy_vo_2 (00000160420BA688)
-[LOG] SoundI::release                          :  (00000160E77ADA98)
-[LOG] SoundI::release                          :     enemy_creepy_vo_3 (000001604225DC18)
-[LOG] SoundI::release                          :  (0000016046BB1248)
-[LOG] SoundI::release                          :     enemy_creepy_vo_4 (00000160420BA008)
-[LOG] SoundI::release                          :  (00000160453B76C8)
-[LOG] SoundI::release                          :     enemy_creepy_vo_5 (000001604225E5D8)
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D20C4D8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002973FA96168
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002973FA96168
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002973FA95238
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002973FA95238
+[LOG] SoundI::release                          : music (000002974252B828)
+[LOG] SoundI::release                          :     music (0000029765C88E48)
+[LOG] SoundI::release                          :     music (000002982CD7FFF8)
+[LOG] SoundI::release                          : rain (0000029742528DF8)
+[LOG] SoundI::release                          :     rain (0000029765C88968)
+[LOG] SoundI::release                          :     rain (000002982CD7F938)
+[LOG] SoundI::release                          : ambience (0000029742528588)
+[LOG] SoundI::release                          :     ambience (0000029765C887C8)
+[LOG] SoundI::release                          :     ambience (000002982CD7F788)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002982D7A3ED8 : node = 00000297DB3E7380
+[LOG] SystemI::createSound                     : add node to async list : head = 00000297DB4402E8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D7A3ED8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000297DB3E7490
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 000002982D7A4238 : node = 00000297DB3E7880
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000297DB4402E8.  list count = 0
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ambience', format=5, channels=2, frequency=48000, lengthbytes=205696, lengthpcm=837663, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.120514.
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 000002982D7A5678 : node = 00000297DB3E7240
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000297DB4402E8.  list count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D7A3ED8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D7A4238
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000297DB3E7990
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='rain', format=5, channels=2, frequency=48000, lengthbytes=261088, lengthpcm=837663, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.350677.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D7A4238
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002982D7A5678
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1467872
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 25952
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000297DB3E7350
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music', format=5, channels=2, frequency=48000, lengthbytes=419776, lengthpcm=1675480, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.365570.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002982D7A5678
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029837D56AF8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029837D56AF8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000029837D58298
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000029837D58298
+[LOG] SoundI::release                          : music (000002982D20C4D8)
+[LOG] SoundI::release                          :     music (000002976360F958)
+[LOG] SoundI::release                          :     music (000002973FA95AA8)
+[LOG] SoundI::release                          : rain (000002982D20CD48)
+[LOG] SoundI::release                          :     rain (000002976360F7B8)
+[LOG] SoundI::release                          :     rain (000002973FA95238)
+[LOG] SoundI::release                          : ambience (000002982D20C178)
+[LOG] SoundI::release                          :     ambience (000002976360CD78)
+[LOG] SoundI::release                          :     ambience (000002973FA96168)
+[LOG] SoundI::release                          :  (000002982B15F358)
+[LOG] SoundI::release                          :     win (00000297637D2C48)
+[LOG] SoundI::release                          :  (0000029833C844F8)
+[LOG] SoundI::release                          :     coll_grab (00000297637D1728)
+[LOG] SoundI::release                          :  (000002982C981968)
+[LOG] SoundI::release                          :     jump (000002973F3DD748)
+[LOG] SoundI::release                          :  (000002982C981238)
+[LOG] SoundI::release                          :     enemy_kill_player (000002973F3DD8E8)
+[LOG] SoundI::release                          :  (0000029808C4F458)
+[LOG] SoundI::release                          :     enemy_fstep_run_1 (000002973F3DE448)
+[LOG] SoundI::release                          :  (000002982C9810C8)
+[LOG] SoundI::release                          :     enemy_fstep_run_2 (000002973F3DCD88)
+[LOG] SoundI::release                          :  (000002982C981688)
+[LOG] SoundI::release                          :     enemy_fstep_run_3 (000002973F3DD0C8)
+[LOG] SoundI::release                          :  (000002982CD1E938)
+[LOG] SoundI::release                          :     enemy_fstep_run_4 (000002976360E438)
+[LOG] SoundI::release                          :  (000002982C981518)
+[LOG] SoundI::release                          :     fstep_walk_1 (000002973F3DCF28)
+[LOG] SoundI::release                          :  (000002982C981DB8)
+[LOG] SoundI::release                          :     fstep_walk_2 (000002973F3DE2A8)
+[LOG] SoundI::release                          :  (000002982CD1EC18)
+[LOG] SoundI::release                          :     fstep_walk_3 (000002976360DDB8)
+[LOG] SoundI::release                          :  (000002982CD1EEF8)
+[LOG] SoundI::release                          :     fstep_walk_4 (000002976360E5D8)
+[LOG] SoundI::release                          :  (000002982CD1E4E8)
+[LOG] SoundI::release                          :     enemy_fstep_walk_1 (000002973F3DD408)
+[LOG] SoundI::release                          :  (000002982CD1EAA8)
+[LOG] SoundI::release                          :     enemy_fstep_walk_2 (000002976360C558)
+[LOG] SoundI::release                          :  (0000029808C4F178)
+[LOG] SoundI::release                          :     enemy_fstep_walk_3 (0000029765C89188)
+[LOG] SoundI::release                          :  (0000029808C4F008)
+[LOG] SoundI::release                          :     enemy_fstep_walk_4 (000002973F3DE108)
+[LOG] SoundI::release                          :  (000002982CD1E378)
+[LOG] SoundI::release                          :     fstep_run_1 (000002976360EDF8)
+[LOG] SoundI::release                          :  (000002982C981C48)
+[LOG] SoundI::release                          :     fstep_run_2 (000002973F3DE5E8)
+[LOG] SoundI::release                          :  (000002982C9813A8)
+[LOG] SoundI::release                          :     fstep_run_3 (000002973F3DE788)
+[LOG] SoundI::release                          :  (000002982CD1E658)
+[LOG] SoundI::release                          :     fstep_run_4 (000002973F3DD268)
+[LOG] SoundI::release                          :  (000002982CD1ED88)
+[LOG] SoundI::release                          :     land (000002976360F2D8)
+[LOG] SoundI::release                          :  (000002982C9817F8)
+[LOG] SoundI::release                          :     coll_idle (000002973F3DCBE8)
+[LOG] SoundI::release                          :  (0000029808C4F2E8)
+[LOG] SoundI::release                          :     enemy_creepy_vo_1 (000002973F3DD5A8)
+[LOG] SoundI::release                          : ambience (000002982D7A3ED8)
+[LOG] SoundI::release                          :     ambience (00000297637D2AA8)
+[LOG] SoundI::release                          :     ambience (0000029837D56AF8)
+[LOG] SoundI::release                          : rain (000002982D7A4238)
+[LOG] SoundI::release                          :     rain (00000297637D2F88)
+[LOG] SoundI::release                          :     rain (0000029837D58298)
+[LOG] SoundI::release                          : music (000002982D7A5678)
+[LOG] SoundI::release                          :     music (00000297637D18C8)
+[LOG] SoundI::release                          :     music (0000029837D571B8)
+[LOG] SoundI::release                          :  (0000029808C4F5C8)
+[LOG] SoundI::release                          :     enemy_creepy_vo_2 (000002973F3DCA48)
+[LOG] SoundI::release                          :  (000002982CD1E7C8)
+[LOG] SoundI::release                          :     enemy_creepy_vo_3 (000002976360EAB8)
+[LOG] SoundI::release                          :  (000002982C981AD8)
+[LOG] SoundI::release                          :     enemy_creepy_vo_4 (000002973F3DDDC8)
+[LOG] SoundI::release                          :  (000002982CD1F068)
+[LOG] SoundI::release                          :     enemy_creepy_vo_5 (000002976360E918)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients

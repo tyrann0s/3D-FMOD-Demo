@@ -45,13 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a83e37da6f2b043a7dad125bfa72fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerInSight: 0
-  hittedObject: 
   soundPath: event:/TestEvent
   isPlayedFromStart: 0
   startVolume: 0
-  maxDistance: 15
-  retranslatorDistanceOffset: 0.5
+  maxDistance: 20
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
